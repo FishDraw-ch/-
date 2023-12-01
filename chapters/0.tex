@@ -1,0 +1,276 @@
+\chapter{序章}
+
+\begin{introduction}
+    \item 新积分理论的必要性
+    \item Lebesgue积分的建立思路
+    \item 简述$\R$上的Lebesgue测度的建立历程
+\end{introduction}
+
+
+\section{引论}
+
+\subsection{新积分理论}
+
+在数学分析中，我们已经学习过Riemann积分. Riemann积分具有极强的直观性：它是面积的推广. 在相当广的范围内，它也够用了. 但随着人们对客观世界认识的不断深化，比如18世纪以来的波动光学和电动力学、20世纪以来的经济学和量子力学等发展的需要，数学上必须对函数项级数、含参函数等进行更深入的讨论. 我们迫切希望数学上能有一个比Riemann积分更为强大的积分，它既能保持Riemann积分的直观性、又能在逐项积分(本质上是积分泛函与其他泛函的换序)方面比Riemann积分所需的条件有较大改进. 法国数学家Lebesgue首先建立了较为令人满意的一种积分——现称Lebesgue积分.
+
+介绍Lebesgue积分无法像介绍Riemann积分那样，一上来就定义什么是Lebesgue积分. 而是需要先引入测度和可测函数的概念，并且用足够的篇幅讨论它们后才能严谨定义Lebesgue积分，进而讨论它的性质和应用. 但是，我们可以尝试粗略地复原一下Lebesgue及一众先驱当年探索的历程.
+
+\subsubsection{建立动机}
+
+具体到数学上，Riemann积分究竟有什么缺点呢？我们来看一些例子.
+\begin{itemize}
+    \item 首先来看数学分析中的例子.
+          \begin{enumerate}
+              \item 首先来看一个Riemann意义下不可逐项积分(定义\ref{换序定义})的函数项级数. 请看例\ref{换序不合法例子}.
+              \item 假设积分域是$D$、函数列$\z\{f_n\y\}_{n\in\N}$. 再来看一个换序前后的Riemann积分/极限都存在，但等式
+              \[   \int_0^1 \z( \lim_{n\to+\wq} f_n\z(x\y) \y) \d x  = \lim_{n\to+\wq} \int_0^1 f_n\z(x\y) \d x    \]
+              却不成立的例子. 请看例\ref{Darboux积分反例}.
+              \item 一般地，对于任一函数列，我们在数学分析中有逐项积分定理(定理\ref{逐项积分定理})，可是条件过强了，因为存在一个非常基本而简洁的函数列能换序，却不满足逐项积分定理的条件. 请看例\ref{逐项积分定理过强}.
+              \item 于是我们削弱逐项积分定理的条件，得到Arzelà控制收敛定理(定理\ref{A控制收敛定理}). 这个条件虽减弱了不少，但是它仍然不是充要条件，而且它的叙述是多么地繁琐啊！
+              \item 我们还可以通过Cantor集(见定义\ref{Cantor三分集})构造一个极其病态的函数列$\z\{ f_n \y\}_{n\in\N}$，他满足以下性质：
+                    \begin{enumerate}
+                        \item $\forall\,n\in\N,\,f_n$在$\R$上连续；
+                        \item $\forall\,x\in\R,\,0\le f_n\z(x\y)\le 1$；
+                        \item 固定任一 $x\in\R$，数列 $\z\{f_n\z(x\y)\y\}_{n\in\N}$在$n$充分大时单调递减；
+                        \item $f_n\ra f$，且 $f$ Riemann不可积.
+                    \end{enumerate}
+                    \begin{proof}
+                        取函数列
+                        \[    f_n=      \]
+                    \end{proof}
+          \end{enumerate}
+          由上面数学分析中的例子，我们知道Riemann积分与极限可换序的充要条件一直找不到，而且勉强找到的比较强的充分条件叙述起来既别扭又繁琐. 假设Riemann积分与极限换序的充要条件被找到了，也一定长得奇丑无比、非常怪异. 而数学家们喜欢漂亮、优雅的结果.
+    \item 再来看一个源于Fourier分析的动机. 由Fourier分析中的Parseval恒等式(定理 
+          \ref{Parseval恒等式})可知，一个函数 $f$的全体Fourier系数 $c_n$满足
+          \[     \sum_{n\in\Z} \z|c_n\y|^2 =  \frac{1}{2\pi} \int_{-\pi}^\pi \z|f\z(x\y)\y|^2 \d x.    \]
+          这个恒等式将形如 $\displaystyle \sum_{n\in\Z} \z|a_n\y|^2 $的收敛数项级数与一个$\z[-\pi,\pi\y]$上的Riemann可积函数联系了起来，也即——将 $\z[-\pi,\pi\y]$上的平方收敛数列(以$\Z$为指标)组成的空间 $\ell^2\z(\Z\y)$和 $\z[ -\pi,\pi \y]$上的Riemann可积函数组成的空间 $\mcR\z[ -\pi,\pi \y]$联系了起来. 数学家们最爱的就是对称性. 如果Parseval恒等式最终能给出这两个空间之间的对称性，甚至是
+          \[ \ell^2\z(\Z\y)\cong\mcR\z[ -\pi,\pi \y], \]
+          那数学家们就高兴坏了. 可是，Fourier分析中有结论(例\ref{不是Fourier系数的例子})：
+          \[  \tx{数列}\,\z\{ \frac{1}{n} \y\}_{n\in\N^*} \,\tx{不是任何Riemann可积函数的Fourier系数.}  \]
+          可是由于 $\displaystyle \sum_{n\in\N^*} \frac{1}{n^2}=\frac{\pi^2}{6}<\wq $，因此 $\displaystyle \z\{ \frac{1}{n} \y\}_{n\in\N^*}\in\ell^2\z(\Z\y). $这就破坏了对称性，说明Riemann可积函数类 $\mcR\z(\R\y)$不能跟 $\ell^2\z(\N^*\y)$对称，$\mcR\z(\R\y)$少了某些函数. 而这一事实由于Parseval恒等式的存在，让数学家感觉很别扭. 他们迫切地想要扩充Riemann可积函数类.
+\end{itemize}
+\vspace{0.5cm}
+
+以上种种例子说明Riemann积分确实性质太差、有众多缺点. 这些缺点让数学家们非常懊恼，也让物理学家和经济学家们在实际研究中感到不自在——因为他们在需要积分换序的时候不知道究竟能不能换. 那么，能不能定义一种新的积分，能够改进这些缺点，即使得：
+\begin{itemize}
+    \item 每个Riemann可积函数$f$在新积分下仍然可积，且积分值相同，即
+    \[    \z(\tx{New}\y) \int_a^b f = \z(\tx{Riemann}\y) \int_a^b f \;;     \]
+    \item 一些Riemann不可积函数 $g$在新积分下可积；
+    \item \textbf{(我们希望)}新积分与极限的换序条件更加宽松和简洁
+\end{itemize} 
+呢？这样，新积分的范围就比Riemann积分要广，并且我们希望它能放宽Riemann积分中逐项积分\footnote{由于 $\displaystyle \sum_{n\in\N}\defi \lim_{m\to+\wq}\sum_{n=0}^m$，因此积分与级数的换序事实上就是积分与极限的换序. 详见\ref{换序理论}小节.}、甚至是积分与别的泛函换序操作的条件. 
+
+\subsubsection{建立思路}\label{新积分理论建立思路}
+
+换序条件的“简洁”是可遇不可求、难以预先设计的. 因此我们只能先尝试建立一套新的积分理论，至于新积分理论的换序条件是否足够“简洁”，只能到时候再看了. 于是，下面我们从细致分析Riemann不可积时的情况入手，引出建立新积分的一种大致方案.
+
+设$f\z(x\y)$是在区间$\z[a,b\y]$上有定义的有界函数. 任取$\z[a,b\y]$上的一组分割 $\pi=\z\{x_i\y\}_{i=0}^n$，即满足：
+\[   a=x_0<x_1<\cdots<x_{n-1}<x_n=b,   \]  将区间$\z[ x_{i-1},x_i \y]$上的振幅(定义\ref{函数振幅定义}) $\omega\z[ x_{i-1},x_i \y]$简记为$\omega_i$，再记\[ \z\|\pi\y\|\defi \max_{1\le i\le n}\z( x_i-x_{i-1} \y);\]
+由命题\ref{Riemann可积充要条件}可知，$f\z(x\y)$在区间$\z[a,b\y]$上Riemann可积的充要条件是
+\[\begin{array}{c}
+\displaystyle \lim_{\z\|\pi\y\|\to 0^+} \sum_{i=1}^n\omega_i\z(x_i-x_{i-1}\y) =0,\; \\ \displaystyle
+\tx{即}\, \forall\,\eps>0,\,\exists\,\tx{分割}\,\delta>0,\,\exists\,\pi=\z\{x_i\y\}_{i=0}^n;\; \z\| \pi \y\|<\delta,\,\sum_{i=1}^n\omega_i\z(x_i-x_{i-1}\y)<\eps.
+\end{array}\]
+由此可见，某函数$f$ Riemann不可积是因为当把分割取得无限细时，在某小区间 $\z[x_{i-1},x_i\y]$上的函数值变化过于剧烈导致振幅 $\omega_i$太大，这样的小区间过多最终导致 $\displaystyle \sum_{i=1}^n\omega_i\z(x_i-x_{i-1}\y)$ 不收敛于 $0$.
+
+那么，我们很自然地想到，当我们把 $\z[a,b\y]$分成若干块时，我们不再在积分区间上随意地切割生成\\ $a=x_0<x_1<\cdots<x_{n-1}<x_n=b$了，而是额外要求切割出的每一小块上的振幅都不大，然后再用这一小块上的长度乘上这一小块上某点的函数值得到每一小块的面积，再加起来得到和式，再考察分块无限细时和式的极限. 这个思路也是在“求面积”，所以如果能成功定义，那自然会保持原先Riemann可积函数的可积性和积分值(参见定义\ref{Riemann积分定义}). 下面把这个方案具体明确一下.
+
+设 $f\z(x\y)$是区间 $\z[a,b\y]$上有定义的有界函数，即满足 $f\z[a,b\y]\sb\z(A,B\y)$，想要使“切割出的每一小块上的振幅都不大”，那么我们不能去切分作为积分域的 $\z[a,b\y]$，因为鬼知道 $f\z(x\y)$是什么样子、怎么“下刀”才能确保每块上振幅不大. 恰恰相反，既然我们想要使“切割出的每一小块上的振幅都不大”，那为什么不直接在那个包含值域的区间 $\z[A,B\y]$上“下刀”呢？只要我们在值域上“下刀”“下”得足够细，那每一小块对应的振幅直接就是趋于 $0$的呀！于是，我们进行如下操作：
+
+任取 $\z[A,B\y]$上的一列分割 $\pi=\z\{y_i\y\}_{i=0}^n$，即满足
+\[   A=y_0<y_1<\cdots<y_{n-1}<y_n=B.   \]
+当然，还得记$\displaystyle \z\|\pi\y\|= \max_{1\le i\le n}\z( y_i-y_{i-1} \y)$，因为一会儿我们要令它趋于$0$. 再简记
+\[   E_i = \z\{   x\;;\;x\in\z[a,b\y],\, y_{i-1}\le f\z(x\y) \le y_i \y\} \equiv \z[a,b\y]\cap f\inv\z[y_{i-1},y_i\y],   \]
+$E_i$相当于原Riemann积分定义中的“第i个小区间”. $E_i$的“长度”记为$\mu\z(E_i\y)$. 然后，就像在Riemann积分定义里那样，任取 $\xi_i\in\z[y_{i-1},y_i\y]$，每一小块的“面积”$s_i$就等于$\mu\z(E_i\y)\xi_i$. 最后，作和式
+\[   S_\pi=\sum_{i=1}^n s_i = \sum_{i=1}^n \mu\z(E_i\y)\xi_i,   \]
+最后的最后，令 $\z\|\pi\y\| \ra 0$，得到的极限 $\displaystyle \lim_{\z\|\pi\y\|\to 0^+} S_\pi $就是函数 $f$在新的方案下的积分值. 原先Riemann不可积的充要条件“$\displaystyle \sum_{i=1}^n\omega_i\z(x_i-x_{i-1}\y)$不收敛于$0$”——当然，在现在的分法下是“$\displaystyle \sum_{i=1}^n\omega_i\mu\z(E_i\y)$不收敛于$0$”——似乎就不可能发生了，因为新分法下每一个 $\omega_i$都是无穷小，而积分区间 $\z[a,b\y]$有界，所以每小块的“长度”$\mu\z(E_i\y)$直观感觉上肯定也是有界的. 那么万事大吉了，按照这种新积分，不存在不可积函数了！
+
+\textbf{且慢！}我们有着一个最大的悬疑：
+\begin{center}
+    \textbf{$\mu\z(E_i\y)$是个什么鬼东西？}
+\end{center}
+我们用前文中限制在 $\z[0,1\y]$上的Dirichlet函数 $D\z(x\y)$来看一看.
+
+$D\z(x\y)$的值域是 $\z\{0,1\y\}$，显然包含于 $\z[0,1\y]$. 于是，我们任取一族$\z[0,1\y]$的分割 $\z\{y_i\y\}_{i=0}^n$. 若 $1\in\z[y_{k-1},y_k\y]$，那么 $E_k=\z[0,1\y]\cap\Q$；若 $0\in\z[y_{l-1},y_l\y]$，那么 $E_l=\z[0,1\y]\cap\R\m\Q$. $E_k$和 $E_l$分别是 $\z[0,1\y]$上的全体有理数和无理数所成的集合！那它们的“长度”$\mu\z(E_k\y),\,\mu\z(E_l\y)$到底是什么呢？
+
+可见，若想用新的方案来定义积分，就必须要经历以下三步：
+\begin{itemize}
+    \item[\textbf{第一步}] 推广“长度”的概念(整个第\ref{一般测度理论}章就是在做这一件事情). 如果能把长度的概念推广到全体 $\R$的子集上，那就真的不存在不可积函数了. 很可惜，“长度”再怎么推广也推广不到整个 $\pws{\R}$上( \ref{朴素推广的失败}节我们就来证明这一点)，不过确实可以推广到 $\R$上相当广泛的子集上去，也是很够用了. “长度”的推广叫做“测度”，可以被定义测度的集合叫做“可测集”.
+    \item[\textbf{第二步}] 讨论究竟什么样的函数 $f$，才可以使得 $\forall\,c<d$，集合 $f\inv\z[c,d\y]$总是可测集. 满足该条件的函数称为“可测函数”.
+    \item[\textbf{第三步}] 讨论可测函数在什么时候是新意义下可积的、新积分值是多少，以及这种积分的性质和应用；还有它和Riemann积分的关系.
+\end{itemize}
+后两步是整个第\ref{第二章}章的内容.
+
+
+
+\subsection{朴素推广的失败}\label{朴素推广的失败}
+我们先来尝试来做一下第一步. 我们很自然地希望长度能够推广到整个 $\pws{\R}$上，毕竟这样就没有不可积函数了. 上一小节最后我们已经剧透了不可能，那么我们来证明一下.
+
+我们先来探讨一下一个$\R$上的测度函数应该满足哪些最基本的要求. 上一小节我们提到了推广积分的目的是使得积分泛函与其他泛函换序的条件更加松弛，所以，如果我们推广出的测度及其诱导的积分
+\[  \tx{(New)}\int_a^b f \defi \lim_{\z\|\pi\y\|\to 0^+}  \sum_{i=1}^n \mu\z(E_i\y)\xi_i  \]
+不能很好地换序，那么我们的推广仍不能满足我们的需求. 我们举例来推测良好的换序性质至少要求测度函数满足什么样的条件. 首先，为了使新积分与Riemann积分的值相容，于是有
+\begin{enumerate}
+    \item 区间的测度仍为其长度，即 $\mu\z(a,b\y)=b-a,\,\forall\,a,\,b\in\Bar{\R}$；
+    \item $\vd$和单点集测度仍为 $0$，即 $\mu\z(\vd\y)=\mu\z(\z\{a\y\}\y)=0,\,\forall\,a\in\R$；
+    \item 测度函数值域非负，即测度函数陪域为 $\gR$.
+\end{enumerate}
+然后，取上一小节取的函数列 $\varphi_n$，我们以及熟知其级数函数不可与Riemann积分换序. 我们假设新积分可以换序，看看会给我们带来什么必要条件.
+
+由于单点集测度仍为 $0$，于是由新积分定义，有(以下积分号均表示新积分)
+\[  \forall\, n\in\N,\,\int^1_0 \varphi_n \defi \mu\z(\z\{q_n\y\}\y)\times 1 + \mu\z( \z[0,1\y]\m\z\{q_n\y\} \y) \times 0 =0,   \]
+所以
+\[   \sum_{n\in\N} \int_0^1 \varphi_n =\sum_{n\in\N} 0=0.   \]
+仍记Dirichlet函数为$D$，则若要使得换序成立，即 $\displaystyle \int_0^1 \sum_{n\in\N} \varphi_n=\int_0^1 D =\sum_{n\in\N} \int_0^1 \varphi_n $，则由新积分定义，必须有
+\begin{align*}  
+    0=\int_0^1 D &\defi \mu\z( \z[0,1\y]\cap\Q \y)\times 1 + \mu\z( \z[0,1\y]\cap\R\m\Q \y)\times 0 \\
+    &= \mu\z( \z[0,1\y]\cap\Q \y).
+\end{align*}
+即必须有 $\mu\z( \z[0,1\y]\cap\Q \y)=0$.
+
+仍将 $\z[0,1\y]\cap\Q$记为 $\z\{ q_n \y\}_{n\in\N}$，即 $\displaystyle \z[0,1\y]\cap\Q= \bcup_{n\in\N} \z\{q_n\y\}$，我们已经知道 $\forall\,n\in\N,\,\mu\z( \z\{q_n\y\} \y)=0$，所以要想使 $\displaystyle \mu\z( \z[0,1\y]\cap\Q \y)=\mu\z( \bcup_{n\in\N} \z\{q_n\y\} \y)=0$，只需要使得
+\[   \mu\z( \bcup_{n\in\N} \z\{q_n\y\} \y) = \sum_{n\in\N} \mu\z( \z\{q_n\y\} \y)   \]
+即可.
+
+注意到任二$\z\{q_n\y\}$之间两两无交，于是将 $\z\{ q_n \y\}_{n\in\N}$推广到一般的两两无交集列$\z\{A_n\y\}_{n\in\N}$，即有
+\[   \mu\z( \bscup_{n\in\N} A_n \y) = \sum_{n\in\N} \mu\z( A_n \y),\;\forall\,\z\{A_n\y\}_{n\in\N}.   \]
+测度函数至少要满足这条性质. 这条性质极为重要，我们称之为\textbf{对无交并的可列可加性}或\textbf{对无交并的$\sigma$-可加性}. 
+
+由几何直觉，我们还认为$\R$上的测度应该满足\textbf{平移不变性}，即对所有可以定义测度的集合 $E$，有 $\forall\,x\in\R,\,\mu\z(E+x\y)=\mu\z(E\y)$成立\footnote{形如“$E+x$”的东西是子集与元素间的代数运算的结果，被称为“陪集”. 见定义\ref{子集的代数运算}}.
+\vspace{0.5cm}
+
+总结一下，我们希望$\R$上的测度函数满足
+\begin{description}
+    \item[\textbf{非负性}] $\mu$陪域为 $\gR$；
+    \item[\textbf{空集零测}] $\mu\z(\vd\y)=0$；
+    \item[\textbf{保持长度}] $\mu\z(a,b\y)=b-a,\,\forall\,a,\,b\in\Bar{\R}$；
+    \item[\textbf{平移不变性}] $\forall\,x\in\R,\,\mu\z(E+x\y)=\mu\z(E\y)$；
+    \item[\textbf{(对无交并的)可列可加性}] $\displaystyle \mu\z( \bscup_{n\in\N} A_n \y) = \sum_{n\in\N} \mu\z( A_n \y),\;\forall\,\z\{A_n\y\}_{n\in\N}\sb\pws{\R}$. 也叫“\textbf{(对无交并的) $\sigma$-可加性}”.
+\end{description}
+\vspace{0.5cm}
+
+现在来证明满足以上五条要求的测度函数无法定义在整个 $\pws{\R}$上，也即——存在不可测集.
+\begin{theorem}\label{不可测集存在性定理}
+    $\R$上存在不可测集\footnote{证明中会用到\textbf{选择公理}(见\ref{选择公理和决定公理}小节). 事实上，如果抛弃选择公理转而采信\textbf{决定公理}，那么全体 $\R$的子集均可测.}.
+\end{theorem}
+\begin{proof}
+    我们先证明这样的测度函数具有“单调性”，即
+    \[   \forall\,E,\,F;\;E\sb F \implies \mu\z(E\y)\le\mu\z(F\y).   \]
+    而这是显然的，注意到 $F=E\scup \z(F\m E\y)$，因此由可列可加性有
+    \[  \mu\z(F\y)=\mu\z[ E\scup \z(F\m E\y) \y]=\mu\z(E\y)+\mu\z(F\m E\y);  \]
+    又因为$\mu$的非负性有 $\mu\z(F\m E\y)\ge 0$，于是有 $\mu\z(F\y)\ge\mu\z(E\y).$
+    \vspace{0.5cm}
+
+    现在，我们正式证明定理0.1.1. 用反证法.
+
+    假设 $\mu$可以被定义在整个 $\pws{\R}$上. 接下来，我们先构造一个集合 $O$，再用 $O$构造一个集合 $\msO$；然后先后证明 $\mu\z(\msO\y)=0,\,\mu\z(\msO\y)\ge 1$. 于是可知我们构造的 $\msO$就是一个不可测集.
+    \vspace{0.5cm}
+    
+    $\forall\,x\in\R,\; \z(x+Q\y)\cap\z[0,1\y]$总非空，因为任意实数总可以减去自己的整数部分(整数自然也是有理数)，来得到一个 $\z[0,1\y]$中的数. 因此，由选择公理，我们可以从每个不同的左陪集 $x+\Q$中任取恰好一个在 $\z[0,1\y]$内的元素，将这些元素全体并置起来构成集合 $O$. 因此显然 $O\sb\z[0,1\y]$.
+
+    下面证明不同的$\z(p+O\y)$间两两无交\footnote{证明这点是为了用$q+Q$的可列无交并来构造$\msO$，从而对$\msO$使用$\mu$的可列可加性.}. 即
+    \[  \forall\,p,\,q\in\Q,\,p\ne q\;;\;\z(p+O\y)\cap\z(q+O\y)=\vd.    \]
+    用反证法. 反设$\z(p+O\y)\cap\z(q+O\y)\ne\vd$，则存在 $x\in\z(p+O\y)\cap\z(q+O\y)$，也即，
+    \[   \exists\,\alpha,\,\beta\in O;\;x=p+\alpha=q+\beta.   \]
+    移项，得
+    \[   \alpha-\beta=q-p\in\Q\implies \alpha=\beta+\z(q-p\y) \implies\alpha\in \z(\beta+\Q\y).   \]
+
+    回忆集合 $O$的构造，“从每个不同的左陪集$x+\Q$中任取恰好一个在$\z[0,1\y]$内的元素”，现在 \[\alpha\in \z(\beta+\Q\y),\,\tx{也有} \,\beta=\beta+0\in\z(\beta+\Q\y);\]
+    即 $\alpha,\,\beta$属于同一个左陪集 $\beta+\Q$. 于是 
+    \[   \alpha=\beta\implies p=q.   \]
+    与条件中的“$p\ne q$”矛盾. 因此原设成立.
+    \vspace{0.5cm}
+
+    于是，接下来我们可以用$q+O$的可列无交并构造$\msO$. 令
+    \[  \msO= \bscup_{q\in\z(-1,1\y)\cap\Q} \z(q+O\y).   \]
+    \vspace{0.5cm}
+
+    先证明 $\mu\z(\msO\y)=0$. 由于 $q\in\z(-1,1\y)$以及 $O\sb\z[0,1\y]$，显然有 $\z(q+O\y)\sb\z(-1,2\y)$，因此它们的并集显然满足
+    \[   \msO= \bscup_{q\in\z(-1,1\y)\cap\Q} \z(q+O\y) \sb\z(-1,2\y).   \]
+    又由于 $\mu$的平移不变性，有
+    \[   \mu\z(q+O\y)=\mu\z(O\y).   \]
+    注意到 $\z(-1,1\y)\cap\Q$也是可列集，因此再由于 $\mu$的单调性和可列可加性，有
+    \begin{align*}
+        \mu\z(\msO\y) &= \mu\z[ \bscup_{q\in\z(-1,1\y)\cap\Q} \z(q+O\y) \y] \\
+        &= \sum_{q\in\z(-1,1\y)\cap\Q} \mu\z(q+O\y) \\
+        &= \sum_{q\in\z(-1,1\y)\cap\Q} \mu\z(O\y) \\
+        &\le \mu\z(-1,2\y) = 3.
+    \end{align*}
+    最后，由于 $\mu$的非负性，一个非负实数的无穷倍居然有界，因此它只能是 $0$. 即 $\mu\z(\msO\y)=0.$
+    \vspace{0.5cm}
+
+    再证明 $\mu\z(\msO\y)\ge 1$. 任取 $x\in\z(0,1\y)$，一定可以找到 $x+\Q$中那唯一一个被选入 $O$的元素 $\alpha_x$，数学语言为：
+    \[    \forall\,x\in\z(0,1\y),\,\exists!\,\alpha_x\in O\cap\z(x+\Q\y).    \]
+    又由于 $x,\,\alpha_x\in\z(0,1\y)$，因此 $x-\alpha_x\in\z(-1,1\y)$. 又由于 $\alpha_x\in\z(x+\Q\y)$，因此 $\exists\,q_0\in\z(-1,1\y)\cap\Q$，
+    \[\begin{array}{lc}
+         & \alpha_x = x+q_0 \\
+       \iff & \displaystyle  x = \alpha_x+\z(-q_0\y)\in \z(q_0+O\y) \sb \bscup_{q\in\z(-1,1\y)\cap\Q} \z(q+O\y) = \msO \\
+       \iff & x\in\msO.
+    \end{array} \]
+    又由于 $x$是在 $\z(0,1\y)$内任取的，所以 $\z(0,1\y)\sb\msO$. 于是由 $\mu$的单调性立知 $\mu\z(\msO\y)\ge\mu\z(0,1\y)=1.$
+    \vspace{0.5cm}
+
+    综上，我们同时有
+    \[\begin{cases}
+        \mu\z(\msO\y)=0, \\
+        \mu\z(\msO\y)\ge 1
+    \end{cases}\]
+    成立，矛盾. 于是可知 $\msO$就是一个 $\R$上的不可测集.
+\end{proof}
+\vspace{0.5cm}
+
+由定理\ref{不可测集存在性定理}可知，并非全体 $\R$的子集都可以定义测度. 由于取全集$\Omega=\R$是测度理论的一种特殊情况，一条性质在一个特殊情况下都不成立，那么自然地，其在一般情况下就不是恒成立的. 即我们立刻得到以下推论：
+\begin{corollary}
+    (采信选择公理的情况下，)一般来说，对于任意集合 $\Omega$，存在子集 $A\in\pws{\Omega}$，A不可测.
+\end{corollary}
+于是，我们自然想知道如何穷尽可测集的边界，得到全体可测集. 这将是第\ref{一般测度理论}章的内容.
+
+\section{以Lebesgue测度为例}
+根据\ref{新积分理论建立思路}小节的讨论，事实上，一个定义在一般集合$D\sb\Omega$上的函数 $f\,:\;D\ra\R$，只要\\ $\forall\,c,\,d\in f\z(D\y),\;f\inv\z[c,d\y] $是能定义测度的，那么这个一般的函数 $f$就是可积的. 这使得我们不满足于仅在 $\R$上推广出测度，而使我们想建立一般集合 $\Omega$上的测度理论. 因为，泛函就是以函数为自变量，映射到$\R$上的函数. 有了一般测度理论，我们就可以讨论泛函的积分！这对数学家的诱惑力是非常大的，这能帮助我们完善泛函分析的理论. 显然，$\R$上的测度是 $\Omega=\R$时的特例. 所以，我们下一章直接来探讨一般测度理论，然后把 $\R$上的测度当作特例来运用我们得到的结论即可.
+
+可是历史上，Lebesgue和Borel、Jordan、Stieltjes等先驱并没有这种上帝视角. 他们只能先成功作出 $\R$上的测度理论. 现在的我们不必再费一遍事儿了. 本节我们会先不加证明地捋一遍Lebesgue当年建立 $\R$上测度的过程. 虽然Lebesgue等人当年的过程中会用到 $\R$的特殊性质，导致这套过程不能直接推广到一般集合 $\Omega$上；但是这不妨害一般测度理论与Lebesgue当年的过程没有本质上的区别，因此本节的内容会帮助读者更好地接受下一章的一般测度理论.
+\vspace{0.5cm}
+
+既然我们已经证明了定理\ref{不可测集存在性定理}，那么我们只得将 $\R$上的那些可测集构成的集族记作 $\msL$，尽管我们还不知道 $\msL$具体是什么. 那么我们希望的测度 $\mu$就应该是一个函数 $\mu\,:\;\msL\ra\gR$. 由\ref{朴素推广的失败}小节的讨论，它应该满足：
+\begin{enumerate}
+    \item $\mu\z(\vd\y)=0$；
+    \item $\mu\z(a,b\y)=b-a,\,\forall\,a,\,b\in\Bar{\R}$；
+    \item $\displaystyle \mu\z( \bscup_{n=1}^m A_n \y) = \sum_{n=1}^m \mu\z( A_n \y),\;\forall\,\z\{A_n\y\}_{n=1}^m$；
+    \item $A\sp B \implies \mu\z(A\m B\y)=\mu\z(A\y)-\mu\z(B\y)$.
+\end{enumerate}
+而这反过来要求 $\msL$满足：
+\begin{enumerate}
+    \item $\vd\in\msL$；
+    \item 所有区间都在 $\msL$中；
+    \item $\displaystyle \z\{A_n\y\}_{n=1}^m\sb\msL \implies \bscup_{n=1}^m A_n\in\msL$；
+    \item $A,\,B\in\msL;\,A\sp B \implies A\m B\in\msL$.
+\end{enumerate}
+以上几条都是对测度代数运算方面的要求，对极限运算没有本质影响. 下面是对测度在极限运算方面的要求：
+\begin{itemize}
+    \item $\displaystyle \mu\z( \bscup_{n\in\N} A_n \y) = \sum_{n\in\N} \mu\z( A_n \y),\;\forall\,\z\{A_n\y\}_{n\in\N}\sb\msL.$
+\end{itemize}
+同理，这反过来要求 $\msL$满足：
+\begin{itemize}
+    \item $\displaystyle \z\{A_n\y\}_{n\in\N}\sb\msL \implies \bscup_{n\in\N} A_n\in\msL$.
+\end{itemize}
+前面的两个3.事实上是这两条的特例，因为令 $\forall\,n\ge m,\,A_n\equiv\vd$即得前面两个3.
+\vspace{0.5cm}
+
+在明确了这些要求之后，问题就变成了怎么寻找 $\msL$，并在 $\msL$上定义一个测度函数 $\pi$.\footnote{为了避免符号冲突混淆，我们暂且先用$\pi$来表示$\msL$上的测度函数.} 这个问题的思路是这样的：
+\begin{enumerate}
+    \item 先在 $\R$上取出某些区间，比如全体有限左开右闭区间 $\z(a,b\y]$、$\vd$、$\R$构成的集族，记作 $\mfS$，并且以满足上文要求的方式定义$\mfS$上的测度函数 $\mu$，最自然的方式就是定义 \[\mu\z(a,b\y]\defi b-a.\]
+    \item 然后，再按照测度能有限加减的要求，将 $\mfS$扩张成 $\mfA$. $\mfA$是有限个\textbf{不交}的左开右闭区间的并集为元素的集族. 对于任一 $\displaystyle E=\bscup_{i=1}^n \z(a_i,b_i\y]\in\mfA$，定义 $\msA$上的测度函数$\nu$： \[ \nu\z(E\y)\defi\sum_{i=1}^n \mu\z(a_i,b_i\y]=\sum_{i=1}^n \z(b_i-a_i\y).\] 这样，就满足了 $\pi$和 $\msL$各自的前三条要求. 但是还不满足它俩各自的最后一条要求，比如开区间 $\z(a,b\y)$、闭区间 $\z[a,b\y]$都不在 $\mfA$中.
+    \item 那么，如何找到满足条件的 $\msL$和 $\pi$呢？一个比较直观的想法是像定义平面上曲边形的面积那样，先定义内面积和外面积，然后内外面积相等时才有面积；我们也试图先在 $\pws{\R}$ 上定义内外测度，再定义内外测度相等时才有测度，再把全体可定义测度的集合定为一个新的集族 $\mfF$. 对于任一 $E\sb\R$，定义外测度函数 $\pi^*$： \[  \pi^*\z(E\y)\defi\inf \z\{ \sum_{n\in\N} \nu\z(F_n\y)\;;\;\z\{F_n\y\}_{n\in\N}\sb\mfA,\, E\sb \bcup_{n\in\N}F_i \y\},  \] 然后想办法定义内测度 $\pi_*\z(E\y)$. 然后令 $\msL$为一切内外测度相等的集作为元素构成的集合，并规定 $\msL$中集 $E$的测度 $\pi\z(E\y)=\pi^*\z(E\y)=\pi_*\z(E\y).$
+
+    但是很遗憾，我们不能使用一般的内测度的定义方式：
+    \[    \pi_*\z(E\y)\defi\sup \z\{ \sum_{n\in\N} \nu\z(F_n\y)\;;\;\z\{F_n\y\}_{n\in\N}\sb\mfA,\, \bcup_{n\in\N}F_i\sb E \y\},   \]
+    这是因为 $\mfA$中元素都是有限个\textbf{无交}的左开右闭区间之并. 照这个内测度定义，对于任何没有内点的集合(见定义\ref{内点定义}) $A$，都有 $\pi_*\z(A\y)=0$，因为$A$没有内点意味着除了$\vd$之外没有任何开区间含于$A$，自然也就没有任何左开右闭区间含于$A$. 因此内测度定义中的上确界就是 $0$. 若此，$\z[0,1\y]\cap\Q$就不是可测集了. 因为若不然，由于$\Q$和 $\R\m\Q$都是没有内点的集合，因此 $\pi_*\z(\z[0,1\y]\cap\Q\y)=\pi_*\z(\z[0,1\y]\cap\R\m\Q\y)=0$，于是$\pi\z(\z[0,1\y]\cap\Q\y)=\pi\z(\z[0,1\y]\cap\R\m\Q\y)=0$. 而由测度的可加性，有
+    \[   \pi\z(\z[0,1\y]\cap\Q\y)+\pi\z(\z[0,1\y]\cap\R\m\Q\y)=\pi\z(\z[0,1\y]\cap\z(\Q\scup\R\m\Q\y)\y)=\pi\z[0,1\y]=0+0=0,   \]
+    而这与 $\pi\z[0,1\y]=1$矛盾. 于是$\z[0,1\y]\cap\Q$是不可测集. 但是这又与测度的可列可加性矛盾，因为$\z[0,1\y]\cap\Q$是可列集，可列集是可列个单点集的无交并，每个单点集的测度都是 $0$，于是$\z[0,1\y]\cap\Q$理应也是可测集且测度为 $0.$ 综上，内测度不能这般定义. 这也是导致我们无法轻松得到一般测度理论的关键原因——内测度无法一般地定义. 我们发现，只有我们证伪掉的上面那种内测度定义方式才与全空间 $\Omega$的具体性质无关，其他的内测度定义方式都需要用到 $\R$的特殊性质才行. 比如，我们这样定义 $\R$上的内测度(还有其他定义方式，不过无法避开$\R$的性质)：对于有界集 $E$，不妨设 $E\sb\z(a,b\y]$，令
+    \[   \pi_*\z(E\y)\defi b-a-\pi^*\z(\z(a,b\y]\m E\y).   \]
+    然后令 $\msL$为一切内外测度相等的集作为元素构成的集合，并规定 $\msL$中集 $E$的测度\\ $\pi\z(E\y)=\pi^*\z(E\y)=\pi_*\z(E\y)$，再证明这样得到的$\pi$和$\msL$满足前文讨论的要求，再把内测度推广到无界集，即可得到 $\R$上的Lebesgue测度.
+\end{enumerate}
+\vspace{0.5cm}
+
+由于在一般空间$\Omega$上定义内测度是不可能的，在建立一般测度理论的过程中，我们需要另辟蹊径. 在第一章中，我们将直接分析外测度究竟在满足哪些条件的集族上具有可列可加性，从而找出可测集族. 我们找到的这个条件被称为Carathéodory条件. 第一章的大概思路就是这三步.
+
+

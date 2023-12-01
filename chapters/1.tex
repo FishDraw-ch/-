@@ -1,0 +1,599 @@
+
+\chapter{一般测度理论}\label{一般测度理论}
+
+\begin{introduction}
+    \item 集族扩张：半代数、代数、$\sigma$-代数
+    \item 测度函数
+    \item 测度函数扩张
+    \item Carathéodory测度扩张定理
+\end{introduction}
+\vspace{0.5cm}
+
+这一章，我们介绍一般空间 $\Omega$上的测度理论. 为此，我们需要抽象上一章结尾处的“$\R$上的Lebesgue测度的建立过程”，提炼一个一般测度理论的大致建立过程，作为本章的提纲.
+\vspace{0.5cm}
+
+根据之前的介绍，我们首先抽象出“$\R$上全体有限左开右闭区间 $\z(a,b\y]$、$\vd$、$\R$构成的集族$\mfS$”满足的性质，定义为“半代数”，并定义其上的测度$\mu$；再抽象出 $\mfS$扩张成的 $\mfA$的性质，定义为“代数”，并将$\mfS$上的测度$\mu$延拓为其上的测度$\nu$；最后再抽象出 $\msL$满足的性质，定义为“$\sigma$-代数”，并通过分析$\nu$诱导的外测度$\pi^*$在哪些$\sigma$-代数上具有我们希望的性质，最终得到可测集族上的测度$\pi$.
+
+观察可以发现，以上过程有两条主线：集族的扩张和测度函数的扩张. 我们先介绍测度函数的相关基本概念，然后再介绍集族的概念，最后再结合两者完成测度扩张..
+
+\section{测度}
+
+\subsection{集函数}
+
+\begin{definition}[集函数]
+    给定集合$\Omega$，若函数 
+    \[  \mu\;:\;\; \msC \ra \bar{\R}\,, \]
+    其中 $\msC\sb\pws{\Omega}$，也即：$\mu$是以一些$\Omega$的子集为自变量、取值为实数或$\pm \wq$的函数，那么，称 $\mu$是一个集函数.
+\end{definition}
+\begin{remark}
+    定义中$\mu$的陪域“$\bar{\R}$”也可拓展为 $\C$甚至$\H$，只不过相对少用.
+\end{remark}
+
+\subsection{测度函数}
+
+测度论中主要研究非负、空集零测且满足有限或可列可加性的集函数. 即：
+\begin{definition}[测度函数]\label{测度函数定义}
+    已知$\Omega$上的集函数
+    \[\mu\;:\;\; \msC \ra \bar{\R}\,,\]
+    其中，若有
+    \begin{enumerate}
+        \item $\vd\in\msC$且 $\mu\z(\vd\y)=0$；
+        \item $\forall\,E\in\msC,\,\mu\z(E\y)\ge 0$，即 $\mu\z(\msC\y)\sb\gR$；
+        \item 以下两条中任意一条成立
+        \begin{enumerate}
+            \item (对无交并的)可列可加性：$\forall\,\z\{ E_n \y\}_{n\in\N}\sb\msC$，若 $\displaystyle \bscup_{n\in\N} E_n\in\msC$，则
+            \[  \mu\z( \bscup_{n\in\N} E_n \y) = \sum_{n\in\N} \mu\z(E_n\y)  \]
+            本条也叫 $\sigma$-可加性.
+            \item (对无交并的)(有限)可加性：$\forall\,\z\{ E_i \y\}_{i=1}^n\sb\msC$，若 $\displaystyle \bscup_{i=1}^n E_i\in\msC$，则
+            \[  \mu\z( \bscup_{i=1}^n E_n \y) = \sum_{i=1}^n \mu\z(E_i\y)  \]
+        \end{enumerate}
+    \end{enumerate}
+    成立，则称集函数 $\mu$为一个$\msC$上的测度函数，相应地，$\mu\z(E\y)$称作$E$的测度. 满足第3条中(a)的叫做“$\sigma$-可加测度”，满足第3条中(b)的叫做“(有限)可加测度”. 
+
+    更一般地，值域$\gR$改为 $\C$且删去第2条“非负性”时的 $\mu$被称为“复测度”. 本章不讨论复测度.
+\end{definition}
+\begin{remark}
+    对无交并的可列可加性一般直接简称\textbf{可列可加性}或\textbf{$\sigma$-可加性}，而之后再引入的\textbf{对任意并的次可加性}则永远不会简称，因为对任意并的那些可加性远远不如对无交并的那些可加性的重要. 因此我们将简称的特权单独赋予\textbf{对无交并的}那些可加性，比如：有限可加性(有限可加性甚至会被进一步简称为\textbf{可加性})、可列可加性、可列次可加性等等.
+\end{remark}
+\vspace{0.5cm}
+
+\begin{remark}
+    空集零测的条件事实上不是很重要，只是为了排除唯一一种极端平凡的情况——对任意集合取值都为 $+\wq$的集函数. 我们不希望这种极端平凡的集函数也成为测度函数. 排除这种情况后，即存在至少一个集合的取值是有限数时，空集零测性是可以被可加性(有限可加性就足够了)推出的. 即：假设 $E$是某个测度有限的集合，那么由可加性有
+    \[  \mu\z(E\y)=\mu\z(E\scup\vd\y)=\mu\z(E\y)+\mu\z(\vd\y) \implies \mu\z(\vd\y)=0.  \]
+    请注意，如果没有“存在至少一个集合的取值是有限数”的条件，即所有集合的测度都是 $+\wq$，那么是不能由 $\mu\z(E\y)=\mu\z(E\y)+\mu\z(\vd\y)$推出 $\mu\z(\vd\y)=0$的，因为 $\wq - \wq$是没有定义的.
+\end{remark}
+\vspace{0.5cm}
+
+\begin{remark}
+    由第一条注，空集零测性并不重要，又因为更一般的复测度不要求非负性，因此测度定义唯一的核心就是可加性. 虽然我们允许两种可加性，但事实上我们最终只追求可列可加性，有限可加性只是我们追求可列可加性的过程中不可避的连带产物. 
+
+    为什么我们追求可列可加性？意大利数学家de Fenetti曾经认为可列可加性不够直观，主动减弱为有限可加性然后建立了de Fenetti概率论(概率论与测度论没有本质区别). 但是de Fenetti概率论得不到我们实践中希望有的很多定理. 于是数学界最终采用了要求可列可加性的{\fontencoding{OT2}\selectfont Kolmogorov}概率论.
+\end{remark}
+\vspace{0.5cm}
+
+我们来看几个测度函数的例子来具体感受一下这个定义.
+\begin{example}
+    $\msC$上的测度函数
+    \[   \forall\,E\in\msC,\; \mu\z(E\y)= \begin{cases}
+        0,\;  &E=\vd , \\
+        +\wq ,\;  &E\ne\vd 
+    \end{cases}   \]
+    被称为平凡测度. 它与我们想要避免的那个集函数仅在 $\vd$一点处有差异，除此之外别无二致，但是我们还是容忍它成为测度了. 不过我们也压根儿用不到它.
+\end{example}
+
+下面看几个简单但不平凡的例子.
+\begin{example}
+    设全集 $\Omega$是有限集，取 $\msC=\pws{\Omega}$，则显然$\msC$对交、补运算封闭. 定义集函数 $\mu$如下
+    \[ \forall\,E\in\msC,\;\mu\z(E\y)=\card E, \footnote{此为“$E$的基数”(见\ref{基数}小节)；在有限集情况，就是“$E$的元素个数”.}\]
+    则 $\mu$是 $\msC=\pws{\Omega}$是上的可加测度.
+\end{example}
+\begin{proof}
+    $\mu\z(\vd\y)=0$显然. 非负性显然. 由于 $\Omega$是有限集，因此一列其的子集也只有有限个. 又由$\mu$的定义，有限可加性也满足.
+\end{proof}
+\begin{example}\label{离散测度特例}
+    给定全集 $\Omega$，取$\msC=\pws{\Omega}$，则显然$\msC$对可列交、可列补运算封闭. 任取一 $a\in\Omega$，定义集函数
+    \[  \forall\,E\in\msC,\;\mu\z(E\y)\equiv \chi_E\z(a\y)=\begin{cases}
+        0, \; &a\notin E, \\
+        1, \; &a\in E
+    \end{cases}.  \]
+    则 $\mu$是 $\msC=\pws{\Omega}$是上的$\sigma$-可加测度. 其中的函数 $\chi_E$是 $\Omega$上 $E$的示性函数(见定义\ref{示性函数}).
+\end{example}
+\begin{proof}
+    $\mu\z(\vd\y)=\chi_\vd\z(a\y)=0$. 非负性显然. 任取一列无交的$\z\{ E_n \y\}_{n\in\N}\sb\msC$，则由定义有
+    \[   \mu\z( \bscup_{n\in\N} E_n \y)=\begin{cases}
+        0,\; &a\notin \displaystyle\bscup_{n\in\N} E_n ; \\
+        1,\; &a\in \displaystyle\bscup_{n\in\N} E_n 
+    \end{cases} =  \begin{cases}
+        0,\; &\forall\,n\in\N,\,a\notin E_n ; \\
+        1,\; &\exists\,n\in\N,\,a\in E_n 
+    \end{cases}.  \]
+    又因为 $\z\{ E_n \y\}_{n\in\N}$两两无交，因此 $a$只要属于了一个 $E_n$就不可能再属于其他$E_n$，即$a$至多属于一个$E_n$. 于是有
+    \[   \mu\z( \bscup_{n\in\N} E_n \y)=\begin{cases}
+        0,\; &\forall\,n\in\N,\,a\notin E_n ; \\
+        1,\; &\exists!\,n\in\N,\,a\in E_n 
+    \end{cases}.   \]
+    而对于某个 $n_0$，有
+    \[  \mu\z(E_{n_0}\y)=\begin{cases}
+        0, \; &a\notin E_{n_0}, \\
+        1, \; &a\in E_{n_0}
+    \end{cases}.  \]
+    现在分情况讨论.
+    \begin{enumerate}
+        \item 若 $a$属于某个 $E_{n_0}$，即$\exists!\,n\in\N,\,a\in E_n$；则对于任意 $m\ne n_0$，有
+        \[ \mu\z(E_m\y)=0. \]
+        那么有
+        \[ \sum_{n\in\N}\mu\z(E_n\y)= \undernote{=1}{\mu\z(E_{n_0}\y)} + \undernote{=0}{\sum_{m\ne n_0} \mu\z(E_m\y)}=1=\mu\z( \bscup_{n\in\N} E_n \y).\]
+        \item 若 $a$不属于任一 $E_n$，即 $\forall\,n\in\N,\,a\notin E_n$；则
+        \[   \sum_{n\in\N}\mu\z(E_n\y)= \sum_{n\in\N} 0 =0= \mu\z( \bscup_{n\in\N} E_n \y). \]
+    \end{enumerate}
+    综上，又由于$\z\{ E_n \y\}_{n\in\N}$是任取的，所以有
+    \[ \forall\,\z\{ E_n \y\}_{n\in\N}\sb\msC,\;\mu\z( \bscup_{n\in\N} E_n \y) = \sum_{n\in\N} \mu\z(E_n\y) \]
+    成立. 可列可加性成立.
+\end{proof}
+\begin{example}
+    给定全集 $\Omega$和满足 $\vd\in\msC$的集族 $\msC\sb\pws{\Omega}$，再指定一个$\Omega$中的点列 $\z\{ x_n \y\}_{n\in\N}\sb\Omega$和一个非负实数列 $\z\{ a_n \y\}\sb\R_+$，定义集函数
+        \begin{align*}
+            \mu:\; \msC &\ra \gR \\
+            E &\mapsto \sum_{n\in\N} \chi_{E}\z(x_n\y) a_n.
+        \end{align*}
+    则$\mu$是$\msC$上的可加测度，称作离散测度.
+\end{example}
+\begin{proof}
+    $\mu\z(\vd\y)=\displaystyle \sum_{n\in\N} \chi_\vd\z(x_n\y) a_n=0$. 非负性显然. 任取满足 $\displaystyle \bscup_{i=1}^k E_i =E\in\msC$的 $\z\{ E_i \y\}_{i=1}^k$. 由定义，有
+    \begin{align*}
+        \mu\z(E_i\y) &= \sum_{n\in\N}\chi_{E_i} \z(x_n\y) a_n ; \\
+        \mu\z(E\y) &= \sum_{n\in\N}\chi_E \z(x_n\y) a_n.
+    \end{align*}
+    由于 $\z\{ E_i \y\}_{i=1}^k$两两无交，因此 $x_n$只要属于了一个 $E_i$就不可能再属于其他$E_i$，即$x_n$至多属于一个$E_i$. 因此，由与上例完全相同的分类讨论，有
+    \[  \forall\,x_n,\; \sum_{i=1}^k \chi_{E_i}\z(x_n\y) = \chi_E\z(x_n\y).  \]
+    所以我们有\footnote{下式第二个等号的换序操作的合法性来源于指标$i$是有限求和，且指标$i$于$n$完全无关.}
+    \begin{align*}
+        \sum_{i=1}^k \mu\z(E_i\y) &= \sum_{i=1}^k \z[    \sum_{n\in\N} \chi_{E_i} \z(x_n\y) a_n   \y] \\
+        &= \sum_{n\in\N} \z[  \sum_{i=1}^k \chi_{E_i} \z(x_n\y)  \y]  a_n \\
+        &= \sum_{n\in\N} \chi_E \z(x_n\y) a_n \\
+        &= \mu\z(E\y).
+    \end{align*}
+    即有限可加性成立.
+\end{proof}
+\begin{remark}
+    “离散测度”名称的来源是因为依离散测度的积分就是数学分析中的无穷级数. 我们将在\ref{依测度积分}节中介绍依测度积分. 因此，我们可以窥见测度论的另一强大之处——统一了级数与积分.
+\end{remark}
+\begin{remark}
+    显然，例\ref{离散测度特例}是本例取 $\z\{x_n\y\}_{n\in\N}=\z\{a\y\},\,\z\{a_n\y\}_{n\in\N}=\z\{1\y\}$时的特例.
+\end{remark}
+\vspace{0.5cm}
+
+我们显然有
+\[\mu\,\tx{是}\,\sigma\,\tx{-可加测度}\,\implies\mu\,\tx{是可加测度.}\] 那么反过来成不成立呢？肯定是不成立，因为若成立，那么有限可加性和可列可加性等价，我何必给同一个概念起两个不同的名字？既然我们都已经起不同的名字了，那么有限可加性肯定不能推出可列可加性. 我们来看一个例子.
+\begin{example}
+    令全集 $\Omega=\z(0,1\y)$，取 $\msC=\z\{ \z(a,b\y]\;;\;0\le a < b < 1 \y\}\cup\z\{\vd\y\}$. 定义测度函数
+    \begin{align*}
+        \mu \,:\quad \msC &\ra \gR \\
+        \z(a,b\y] &\mapsto \begin{cases}
+            +\wq , \; &a=0; \\
+            b-a , \; &a>0
+        \end{cases},
+    \end{align*}
+    并规定 $\mu\z(\vd\y)=0$. 则 $\mu$是 $\msC$上的可加测度，但不是 $\sigma$-可加测度.
+\end{example}   
+\begin{proof}
+    先证有限可加性.
+
+    $\msC$中的一列有限个无交区间 $\z\{ \z(a_i,b_i\y] \y\}_{i=1}^k$的并集 $\displaystyle \bscup_{i=1}^k \z(a_i,b_i\y] $若也在 $\msC$中，则必须也是 $\z(a,b\y]$的形式. 不妨设
+    \[a_1<a_2<\cdots<a_{k-1}<a_k,\]
+    那么若$\displaystyle \bscup_{i=1}^k \z(a_i,b_i\y]\in\msC$，就必须有
+    \[    \forall\,i,\;b_i=a_{i+1}   \]
+    成立. 那么，有 $\displaystyle\bscup_{i=1}^k \z(a_i,b_i\y] = \z(a_1,b_k\y]$. 于是我们分类讨论：
+    \begin{enumerate}
+        \item $a_1=0$时，$\displaystyle \mu\z( \bscup_{i=1}^k \z(a_i,b_i\y] \y)=\mu\z(a_1,b_k\y]=+\wq = \undernote{=+\wq}{\mu\z(a_1,b_1\y]} + \sum_{i=2}^k \mu\z(a_i,b_i\y]=\sum_{i=1}^k \mu\z(a_i,b_i\y]$；
+        \item $ a_1 > 0 $ 时，$    \displaystyle \mu\z( \bscup_{i=1}^k \z(a_i,b_i\y] \y)=\mu\z(a_1,b_k\y]= b_k-a_1 = \sum_{i=1}^k \z( b_i-a_i \y)=\sum_{i=1}^k \mu\z(a_i,b_i\y]   $.
+    \end{enumerate}
+    综上，有限可加性成立.
+
+    再证 $\sigma$-可加性不成立.
+
+    取严格单调递减且收敛到 $0$的正实数列 $\z\{x_n\y\}_{n\in\N}$，其首项 $x_0=\displaystyle\frac{1}{2}$，则显然
+    \[   \bscup_{n\in\N} \z(x_{n+1},x_n\y] = \z(0,\frac{1}{2}\y]\in\msC.   \]
+    于是
+    \[   \sum_{n\in\N} \mu\z(x_{n+1},x_n\y]=\sum_{n\in\N} \z(x_n-x_{n+1}\y)=\frac{1}{2}\ne +\wq=\mu\z(0,\frac{1}{2}\y]=\mu\z( \bscup_{n\in\N} \z(x_{n+1},x_n\y] \y).    \]
+    即 $\sigma$-可加性不成立.
+\end{proof}
+\vspace{0.5cm}
+
+经过上述讨论，我们知道测度函数的定义(定义\ref{测度函数定义})唯一的核心就是可加性. 而可加性并不对作为测度函数定义域的集族 $\msC$中任一无交集列成立，仅仅要求对其有限或可列无交并在 $\msC$中的集列成立——也就是说，有一些集合，它们是$\msC$中元素的无交并，但是它们却不在$\msC$中. 而这意味着我们的测度函数 $\mu$没有穷尽它的“能耐”——有一些集合本是可以定义测度的，却碍于定义域残缺，无法定义. 那么，我们自然会想到把 $\msC$中全体无交集列的无交并扩充进 $\msC$里面去，并定义其测度为满足可加性的那个唯一值. 这个操作显然是可行且自然的.
+
+转念一想，与其在函数 $\mu$的基础上扩张，为何不在定义 $\mu$之前就把定义域扩张好呢？说到底，还是定义域 $\msC$这个集族太过一般了，没有足够的性质来为测度服务. 于是，我们来考察一下带有某些限制(性质)的集族. 我们希望以这些不那么一般的集族作为测度函数的定义域.
+
+
+\section{集族}
+\subsection{半代数、代数、$\sigma$-代数.}
+我们先不进行上一节末尾预告的集族扩张，而是先定义一个比我们预告的集族扩张更一般的集族. 这个集族是上一章末尾和本章一开头提到的集族“$\R$上全体有限左开右闭区间 $\z(a,b\y]$、$\vd$、$\R$构成的集族$\mfS$”的抽象. 为方便叙述，我们将这个集族记为 $\msI$.
+\begin{definition}[半代数]
+    给定全集 $\Omega$，集族 $\mfS\sb\pws{\Omega}$，$\mfS$被称为一个“($\Omega$上的)半代数”当且仅当一下性质成立：
+    \begin{enumerate}
+        \item $\Omega\in\mfS$；
+        \item 有限交封闭性：$\displaystyle \z\{ E_i \y\}_{i=1}^n\sb\mfS\implies \bcap_{i=1}^n E_i \in\mfS$；
+        \item 弱补封闭性：$\displaystyle E\in\mfS\implies\exists\,\z\{ E_i \y\}_{i=1}^n\sb\mfS,\,\bscup_{i=1}^n E_i=E\c$.
+    \end{enumerate}
+\end{definition}
+\begin{remark}
+    弱补封闭性不要求 $\mfS$直接对补运算封闭，只要求$\mfS$中有一列有限个无交集能并成其补集即可.
+\end{remark}
+\begin{remark}
+    要求这些性质的原因是 $\msI$中的元素显然满足这些性质. 而 $\msI$是我们能简便地定义通常意义下长度的“最简”集族. 这是一个很直观的结论，没人会有异议.
+\end{remark}
+\vspace{0.5cm}
+
+现在我们来填上一小节结尾挖的坑. 我们来看以下两个定义.
+
+\begin{definition}[代数]
+    给定全集 $\Omega$，集族 $\mfA\sb\pws{\Omega}$，$\mfA$被称为一个“($\Omega$上的)代数”当且仅当一下性质成立：
+    \begin{enumerate}
+        \item $\Omega\in\mfA$；
+        \item 有限交封闭性：$\displaystyle \z\{ E_i \y\}_{i=1}^n\sb\mfA\implies \bcap_{i=1}^n E_i \in\mfA$；
+        \item 补封闭性：$E\in\mfA\implies E\c\in\mfA$.
+    \end{enumerate}
+\end{definition}
+
+\begin{definition}[$\sigma$-代数]
+    给定全集 $\Omega$，集族 $\mfF\sb\pws{\Omega}$，$\mfF$被称为一个“($\Omega$上的) $\sigma$-代数”当且仅当一下性质成立：
+    \begin{enumerate}
+        \item $\Omega\in\mfF$；
+        \item 可列交封闭性：$\displaystyle \z\{ E_n \y\}_{n\in\N}\sb\mfF\implies \bcap_{n\in\N} E_n \in\mfF$；
+        \item 补封闭性：$E\in\mfF\implies E\c\in\mfF$.
+    \end{enumerate}
+\end{definition}
+
+我们可以知道这两者就是上一节末尾我们希望得到的集族. 因为有以下性质成立.
+\begin{proposition}\label{差和并封闭性命题}
+    设$\mfA$和$\mfF$分别是全集 $\Omega$上的代数和 $\sigma$-代数. 为方便叙述，令$\mfL=\mfA,\,\mfF$. 则有以下性质成立：
+    \begin{enumerate}
+        \item 差封闭性：$E,\,F\in\mfL\implies E\m F\in\mfL$；
+        \item 有限/可列任意并封闭性：$\begin{array}{c}
+            \displaystyle \z\{ E_i \y\}_{i=1}^n \sb\mfA\implies\bcup_{i=1}^n E_i\in\mfA ;   \\
+            \displaystyle \z\{ E_n \y\}_{n\in\N} \sb\mfF\implies\bcup_{n\in\N} E_n\in\mfF  
+        \end{array}$.
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    \begin{enumerate}
+        \item $\forall\,E,\,F\in\mfL$，由于差集的定义(见定义\ref{集合的基本运算定义})，有
+        \[ E\m F\defi E\cap F\c, \]
+        由($\sigma$-)代数的交封闭性和补封闭性立得 $E\m F\in\mfL$.
+        \item 由de Morgan律(定理\ref{分配律和de Morgan律推广})，有
+        \[\begin{array}{c}
+             \displaystyle \forall\,\z\{ E_i \y\}_{i=1}^n\sb\mfA,\; \bcup_{i=1}^n E_i = \z( \bcap_{i=1}^n E_i\c \y)\c; \\
+             \displaystyle \forall\,\z\{ E_n \y\}_{n\in\N}\sb\mfF,\; \bcup_{n\in\N} E_n = \z( \bcap_{n\in\N} E_n\c \y)\c.
+        \end{array}\]
+        于是由($\sigma$-)代数的交封闭性和补封闭性立得 $\displaystyle \bcup_{i=1}^n E_i\in\mfA,\;\bcup_{n\in\N} E_n\in\mfF.$
+    \end{enumerate}
+\end{proof}
+\vspace{0.5cm}
+
+由定义立得以下推论：
+\begin{corollary}\label{集族从属关系推论}
+    一个集族 $\mfL$是 $\Omega$上的 $\sigma$-代数 $\implies \mfL$是 $\Omega$上的代数$\implies \mfL$是 $\Omega$上的半代数.
+\end{corollary}
+\vspace{0.5cm}
+
+下面的命题的思想会被我们反反复复地使用，用来确保一系列类似的定义的良定性.
+\begin{proposition}\label{生成代数良定性}
+    一列集族 $\z\{ \mfA_\alpha \y\}_{\alpha\in I}$中每个元素都是 $\Omega$上的代数，则它们的交 $\mfA=\displaystyle \bcap_{\alpha\in I} \mfA_\alpha$也是 $\Omega$上的代数.
+\end{proposition}
+\begin{proof}
+    \begin{enumerate}
+        \item $\forall\,\alpha\in I,\,\Omega\in\mfA_\alpha \iff \Omega\in\displaystyle\bcap_{\alpha\in I} \mfA_\alpha=\mfA.$
+        \item $\z\{E_i\y\}_{i=1}^n\sb\mfA=\displaystyle\bcap_{\alpha\in I} \mfA_\alpha\iff\forall\,\alpha\in I,\,\z\{E_i\y\}_{i=1}^n\sb\mfA_\alpha$；又由于 $\mfA_\alpha$是代数，有有限交封闭性，于是 $\forall\,\alpha\in I,\,\z\{E_i\y\}_{i=1}^n\sb\mfA_\alpha\implies\displaystyle\forall\,\alpha\in I,\, E=\bcap_{i=1}^n E_i\in\mfA_\alpha\iff E=\bcap_{i=1}^n E_i\in\bcap_{\alpha\in I} \mfA_\alpha =\mfA$. 即有限交封闭性成立.
+        \item $E\in\displaystyle \mfA=\bcap_{\alpha\in I} \mfA_{\alpha\in I}\iff \forall\,\alpha\in I,\,E\in\mfA_\alpha$；又由于 $\mfA_\alpha$是代数，有补封闭性，于是 \\ $\displaystyle \forall\,\alpha\in I,\,E\in\mfA_\alpha\iff\forall\,\alpha\in I,\,E\c\in\mfA_\alpha\iff E\c\in\bcap_{\alpha\in I} \mfA_\alpha =\mfA$. 即补封闭性成立.
+    \end{enumerate}
+\end{proof}
+由完全相同的证明方法，只是把“有限交”全部改为“可列交”，即得以下推论：
+\begin{corollary}\label{生成sigma代数良定性}
+    一列集族 $\z\{ \mfF_\alpha \y\}_{\alpha\in I}$中每个元素都是 $\Omega$上的$\sigma$-代数，则它们的交 $\mfF=\displaystyle \bcap_{\alpha\in I} \mfF_\alpha$也是 $\Omega$上的$\sigma$-代数.
+\end{corollary}
+\vspace{0.5cm}
+
+由以上讨论可知，给定任一集族 $\msC$，总可以找到唯一一个包含 $\msC$的“最小”的($\sigma$-)代数.
+\begin{definition}[集族生成的代数]
+    给定全集 $\Omega$，对于任一集族 $\msC\sb\pws{\Omega}$，定义“由$\msC$生成的代数”，记作 $\mfA\z(\msC\y)$，满足：
+    \begin{enumerate}
+        \item $\mfA\z(\msC\y)\sp\msC$；
+        \item $\begin{cases}
+            \msB \,\tx{是}\,\Omega\,\tx{上的代数}，\\
+            \msB\sp\msC
+        \end{cases}\implies\msB\sp\mfA\z(\msC\y).$
+    \end{enumerate}
+    即
+    \[   \mfA\z(\msC\y)\defi \bcap_{\msB\sp\msC} \msB,\quad\msB\,\tx{是}\,\Omega\,\tx{上的代数.}   \]
+    由命题\ref{生成代数良定性}，本定义良定.
+\end{definition}
+\begin{remark}
+    $\mfA\z(\msC\y)$可以看成是按步骤将 $\msC$中所有元素的补集、任意有限个元素的交和并之结果全部扩充进来所得到的集合.
+\end{remark}
+\begin{definition}[集族生成的$\sigma$-代数]
+    给定全集 $\Omega$，对于任一集族 $\msC\sb\pws{\Omega}$，定义“由$\msC$生成的$\sigma$-代数”，记作 $\mfF\z(\msC\y)$，满足：
+    \begin{enumerate}
+        \item $\mfF\z(\msC\y)\sp\msC$；
+        \item $\begin{cases}
+            \msB \,\tx{是}\,\Omega\,\tx{上的}\,\sigma\,\tx{-代数}，\\
+            \msB\sp\msC
+        \end{cases}\implies\msB\sp\mfF\z(\msC\y).$
+    \end{enumerate}
+    即
+    \[   \mfF\z(\msC\y)\defi \bcap_{\msB\sp\msC} \msB,\quad\msB\,\tx{是}\,\Omega\,\tx{上的}\,\sigma\,\tx{-代数.}   \]
+    由推论\ref{生成sigma代数良定性}，本定义良定.
+\end{definition}
+\begin{remark}
+    虽说任意集族$\msC$都可以生成($\sigma$-)代数，但其实对我们来说重要的只有$\msC$取半代数 $\mfS$时生成的 $\mfA\z(\mfS\y)$和 $\mfF\z(\mfS\y)$.
+\end{remark}
+\vspace{0.5cm}
+
+\begin{lemma}[$\mfA\z(\mfS\y)$表示引理]\label{A(S)表示引理}
+    给定全集 $\Omega$和其上的半代数 $\mfS\sb\pws{\Omega}$，则有
+    \[ E\in\mfA\z(\mfS\y)\iff\exists\,\z\{E_i\y\}_{i=1}^n\sb\mfS,\,E=\bscup_{i=1}^n E_i. \]
+\end{lemma}
+\begin{remark}
+    这个定理其实是说“半代数生成的代数中的元素可以用原代数中的元素的有限无交并表示，并且能如此表示的集合一定是半代数生成的代数中的元素”. 这是一个极其有用的表示定理.
+\end{remark}
+\begin{remark}
+    这种表示并不是唯一的. 也就是说，同一个 $\mfA\z(\mfS\y)$中的元素可以由$\mfS$中几列不同的集列的有限无交并表示.
+\end{remark}
+\begin{proof}
+    “$\impliedby$”
+
+    由于 $\mfA\z(\mfS\y)\sp\mfS$，且 $\z\{E_i\y\}_{i=1}^n\sb\mfS$，所以 $\forall\,i,\,E_i\in\mfA\z(\mfS\y)$. 又因为 $\mfA\z(\mfS\y)$是代数，有有限交封闭性和补封闭性，再结合de Morgan律(定理\ref{分配律和de Morgan律推广})，有
+    \[   E=\z(E\c\y)\c= \z[ \z(\bscup_{i=1}^n E_i\y)\c \y]\c=\z( \bcap_{i=1}^n E_i\c
+    \y)\c \in \mfA\z(\mfS\y).   \]
+
+    “$\implies$”
+
+    将半代数 $\mfS$中任意有限个集合的无交并的结果构成的集族记为 $\msB$. 即
+    \[ \msB\defi \z\{ \bscup_{i=1}^n H_i\;;\;H_i\in\mfS \y\}. \]
+    我们要证
+    \[\tx{“}\,\mfA\z(\mfS\y)\,\tx{中的元素都可以表示成}\,\mfS\,\tx{中元素的有限无交并形式，”}\]
+    只需证 $\mfA\z(\mfS\y)\sb\msB$即可. 现在，由于 $\mfA\z(\mfS\y)$的定义，显然有
+    \[  \begin{cases}
+        \msB\sp\mfS; \\
+        \msB\,\tx{是}\,\Omega\,\tx{上的代数}
+    \end{cases}\implies\msB\sp\mfA\z(\mfS\y) \]
+    成立，而这个推断的结论正是我们想要证明的. 因此，我们只需证
+    \[\begin{cases}
+        \msB\sp\mfS; \\
+        \msB\,\tx{是}\,\Omega\,\tx{上的代数}
+    \end{cases}\]
+    即可. 而 $\msB\sp\mfS$是极其显然的，因为任一 $S\in\mfS$，都可以写成它自己本身和有限给空集的无交并，而我们也有 $\vd\in\mfS$成立. 这是因为 $\mfS$是半代数，有弱补封闭性，而空集作为全集的补集，只有
+    \[ \vd=\Omega\c=\bscup_{i=1}^n\vd \]
+    这一种写法，从而 $\vd\in\mfS$. 因此$\forall\,S\in\mfS$都有 $S\in\msB$成立. 从而有
+    \[ \msB\sp\mfS \]
+    成立. 因此只需证 $\msB$是代数即可.
+
+    为了证明$\msB$是代数，我们挨个检验代数的三条定义.
+    \begin{enumerate}
+        \item $\Omega\in\mfS\sb\msB\implies\Omega\in\msB$.
+        \item 任取一列 $\z\{ B_i \y\}_{i=1}^n\sb\msB$，由 $\msB$的定义可知
+        \[   \forall\,i,\,\exists\,\z\{E_i^{\alpha_i}\y\}_{\alpha_i=1}^{k_i}\sb\mfS;\;B_i=\bscup_{\alpha_i=1}^{k_i} E_i^{\alpha_i}.   \]
+        再由交对并的分配律(定理\ref{分配律和de Morgan律推广})，有
+        \begin{align*}
+            \bcap_{i=1}^n B_i &= \bcap_{i=1}^n \z( \bscup_{\alpha_i=1}^{k_i} E_i^{\alpha_i} \y) \\
+            &= \undernote{n\,\tx{个}}{\bscup_{\alpha_1=1}^{k_1}\bscup_{\alpha_2=1}^{k_2}\cdots\bscup_{\alpha_n=1}^{k_n}} \z( \bcap_{i=1}^n E_i^{\alpha_i} \y).
+        \end{align*}
+        由于$\mfS$是半代数，有有限交封闭性，因此$\displaystyle \bcap_{i=1}^n E_i^{\alpha_i}$也是$\mfS$中的元素. 因此，这是 $\displaystyle \sum_{i=1}^n k_i$个 $\mfS$中元素的有限无交并\footnote{这是因为集列$\z\{E_i^{\alpha_i}\y\}_{\alpha_i=1}^{k_i}$对于指标$\alpha_i$是两两无交的(对于指标$i$不一定是两两无交的，$i$和$\alpha_i$都是这个集列的指标)，因此集列$\displaystyle \z\{ \bcap_{i=1}^n E_i^{\alpha_i} \y\}_{\alpha_i=1}^{k_i}$对于指标$\alpha_i$也是两两无交的(指标$i$已经被缩合掉了，因此不是这个集列的指标).}，满足 $\msB$的定义，因此在 $\msB$中. 即有限交封闭性成立.
+        \item 任取 $B\in\msB$，由 $\msB$的定义可知
+        \[   \exists\,\z\{E_i\y\}_{i=1}^n\sb\mfS;\;B=\bscup_{i=1}^n E_i.   \]
+        于是由de Morgan律(定理\ref{分配律和de Morgan律推广})有
+        \[   B\c=\z( \bscup_{i=1}^n E_i \y)\c=\bcap_{i=1}^n E_i\c.   \]
+        又因为每个 $E_i$都是半代数 $\mfS$中的元素，而 $\mfS$有弱补封闭性，于是对于每一个 $E_i$的补集 $E_i\c$都有
+        \[   \forall\,i,\,\exists\,\z\{ F_i^{\alpha_i} \y\}_{\alpha_i=1}^{k_i}\sb\mfS;\;E_i\c=\bscup_{\alpha_i=1}^{k_i} F_i^{\alpha_i}.   \]
+        因此，结合交对并的分配律(定理\ref{分配律和de Morgan律推广})，有
+        \begin{align*}
+            B\c &= \z(\bscup_{i=1}^n E_i\y)\c=\bcap_{i=1}^n E_i\c \\
+            &= \bcap_{i=1}^n \z( \bscup_{\alpha_i=1}^{k_i} F_i^{\alpha_i} \y) \\
+            &= \undernote{n\,\tx{个}}{\bscup_{\alpha_1=1}^{k_1}\bscup_{\alpha_2=1}^{k_2}\cdots\bscup_{\alpha_n=1}^{k_n}} \z( \bcap_{i=1}^n F_i^{\alpha_i} \y).
+        \end{align*}
+        与证明有限交封闭性时同理，这也是 $\displaystyle \sum_{i=1}^n k_i$个 $\mfS$中元素的有限无交并，因此也在 $\msB$中. 即补封闭性成立.
+    \end{enumerate}
+    综上，$\msB$是代数.
+\end{proof}
+\vspace{0.5cm}
+
+这个引理为 $\mfA\z(\mfS\y)$中的元素提供了良好的表示. 我们自然会想 $\mfF\z(\mfS\y)$上是否有类似的表示. 很遗憾，我们不能像我们对待 $\mfA\z(\msC\y)$那样，将 $\mfF\z(\msC\y)$看成按步骤将 $\msC$中所有元素的补集、任意可列个元素的交和并之结果全部扩充进来所得到的集合. 一般来说，这个扩充完之后得到的集合仍然只是 $\mfF\z(\msC\y)$的一小部分. 所以 $\mfF\z(\msC\y)$的结构远远要比 $\mfA\z(\msC\y)$复杂. 因此，类似的表示定理也是不存在的. 但是我们依然可以来尝试描述这个复杂的结构.
+\vspace{0.5cm}
+
+\begin{proposition}\label{集族扩张命题}
+    给定全集 $\Omega$，对于任一集族 $\msC\sb\pws{\Omega}$，有
+    \[\mfF\z(\msC\y)=\mfF\z( \mfA\z( \msC \y) \y).\]
+\end{proposition}
+\begin{proof}
+    \begin{enumerate}
+        \item 先证 $\mfF\z(\msC\y)\sp\mfF\z( \mfA\z( \msC \y) \y)$. 由定义有 $\msC\sb\mfF\z(\msC\y)$，又由推论\ref{集族从属关系推论}有 $\mfF\z(\msC\y)$也是一个代数，即 $\mfF\z(\msC\y)$是一个包含 $\msC$的代数. 因此其一定包含包含 $\msC$的“最小”代数即 $\mfA\z(\msC\y)$，即
+        \[ \mfF\z(\msC\y)\sp\mfA\z(\msC\y). \]
+        而这即是说 $\mfF\z(\msC\y)$是一个包含 $\mfA\z(\msC\y)$的 $\sigma$-代数，因此一定包含包含 $\mfA\z(\msC\y)$的“最小”$\sigma$-代数即 $\mfF\z(\mfA\z(\msC\y)\y)$，即
+        \[   \mfF\z(\msC\y)\sp\mfF\z( \mfA\z( \msC \y) \y).   \]
+        \item 再证 $\mfF\z(\msC\y)\sb\mfF\z( \mfA\z( \msC \y) \y)$. 由定义，有 $\mfF\z(\mfA\z(\msC\y)\y)\sp\mfA\z(\msC\y)\sp\msC$，即 $\mfF\z(\mfA\z(\msC\y)\y)$是包含 $\msC$的一个 $\sigma$-代数. 因此其一定包含 $\mfF\z(\msC\y)$. 即
+        \[ \mfF\z(\mfA\z(\msC\y)\y)\sp\mfF\z(\msC\y). \]
+    \end{enumerate}
+    综上 $\mfF\z(\msC\y)=\mfF\z( \mfA\z( \msC \y) \y)$.
+\end{proof}
+\vspace{0.5cm}
+我们引入新的概念来进一步描述 $\mfF\z(\msC\y)$的结构.
+
+\subsection{单调集族}
+
+\begin{definition}[单调集族]
+    给定全集 $\Omega$和其上的集族 $\msM\sb\pws{\Omega}$，$\msM$被称为一个“($\Omega$上的)单调集族”当且仅当
+    \[   \forall\,\z\{A_n\y\}_{n\in\N},\,\z\{B_n\y\}_{n\in\N}\sb\msM,\;\begin{array}{c}
+        A_n\nearrow A\implies A\in\msM; \\
+        B_n \searrow B\implies B\in\msM
+    \end{array}.   \]
+\end{definition}
+\begin{remark}
+    这个定义即是说单调集族对所有单调收敛集列(见定义\ref{单调集列定义})的极限运算封闭. 当然，单调集族不必像(半/$\sigma$-)代数那样，对“$\cap$”“$\cup$”或“$\m$”等集合的代数运算封闭；反之，(半)代数也不必对集合的极限运算封闭.
+\end{remark}
+\vspace{0.5cm}
+
+类似命题\ref{生成代数良定性}和推论\ref{生成sigma代数良定性}，我们也有如下命题.
+\begin{proposition}\label{生成单调集族的良定性}
+    一列集族 $\z\{ \msM_\alpha \y\}_{\alpha\in I}$中每个元素都是 $\Omega$上的单调集族，则它们的交 $\msM=\displaystyle \bcap_{\alpha\in I} \msM_\alpha$也是 $\Omega$上的单调集族.
+\end{proposition}
+\begin{proof}
+    $\displaystyle \bcap_{\alpha\in I} \msM_\alpha$中任一单调集列都含于每一个 $\msM_\alpha$，那么由单调集族的定义，它的极限都在每一个 $\msM_\alpha$中，即它属于 $\displaystyle \bcap_{\alpha\in I} \msM_\alpha$.
+\end{proof}
+\begin{definition}[集族生成的单调集族]
+    给定全集 $\Omega$，对于任一集族 $\msC\sb\pws{\Omega}$，定义“由$\msC$生成的代数”，记作 $\msM\z(\msC\y)$，满足：
+    \begin{enumerate}
+        \item $\msM\z(\msC\y)\sp\msC$；
+        \item $\begin{cases}
+            \msN \,\tx{是}\,\Omega\,\tx{上的单调集族}，\\
+            \msN\sp\msC
+        \end{cases}\implies\msN\sp\msM\z(\msC\y).$
+    \end{enumerate}
+    即
+    \[   \msM\z(\msC\y)\defi \bcap_{\msN\sp\msC} \msN,\quad\msN\,\tx{是}\,\Omega\,\tx{上的单调集族.}   \]
+    由命题\ref{生成单调集族的良定性}，本定义良定.
+\end{definition}
+\vspace{0.5cm}
+
+由于 $\sigma$-代数同时对集合的代数运算和单调集列的极限运算封闭，而单调集族对单调集列的极限运算封闭，所以不难想到，用对代数运算封闭的代数来生成一个单调集族，就可能同时对代数运算和极限运算封闭，得到一个 $\sigma$-代数. 请看以下定理.
+\begin{theorem}\label{代数生成的单调集族和sigma代数相等}
+    给定全集 $\Omega$和其上的代数 $\mfA\sb\pws{\Omega}$，则
+    \[   \mfF\z(\mfA\y)=\msM\z(\mfA\y).   \]
+\end{theorem}   
+\begin{proof}
+    先证 $\mfF\z(\mfA\y)\sp\msM\z(\mfA\y)$. 
+    
+    由命题\ref{差和并封闭性命题}，$\mfF\z(\mfA\y)$对可列交和可列并都封闭，而考虑到推论\ref{单调收敛集列推论}，可列交和可列并就是单调收敛集列的极限. 因此 $\mfF\z(\mfA\y)$对单调收敛集列的极限封闭，而这就是单调集族的定义. 因此 $\mfF\z(\mfA\y)$也是单调集族. 又因为 $\mfF\z(\mfA\y)\sp\mfA$，所以 $\mfF\z(\mfA\y)$是包含 $\mfA$的一个单调集族. 因此
+    \[ \mfF\z(\mfA\y)\sp\msM\z(\mfA\y).\]
+
+    再证$\mfF\z(\mfA\y)\sb\msM\z(\mfA\y)$.
+
+    由定义，有
+    \[\begin{cases}
+        \msM\z(\mfA\y)\sp\mfA; \\
+        \msM\z(\mfA\y)\,\tx{是}\,\sigma\,\tx{-代数}
+    \end{cases}\implies\mfF\z(\mfA\y)\sb\msM\z(\mfA\y)\]
+    成立，而由定义，$\msM\z(\mfA\y)\sp\mfA$是显然的. 因此只需证 $\msM\z(\mfA\y)$是 $\sigma$-代数. 我们先证明$\msM\z(\mfA\y)$是代数，再将结果加强为 $\sigma$-代数. 我们构造一族辅助集族来帮助我们证明$\msM\z(\mfA\y)$是代数. 
+    
+    对于每个 $E\in\msM\z(\mfA\y)$，定义
+    \[ \msK\z(E\y)\defi \z\{ H\in\msM\z(\mfA\y)\;;\;E\m H,\,E\cap H,\,H\m E \in\msM\z(\mfA\y)\y\}. \]
+    我们将先证明有
+    \begin{equation}
+        E\in\mfA\implies\msM\z(\mfA\y)\sb\msK\z(E\y) \label{1.1式}
+    \end{equation}
+    成立. 由定义，有
+    \[\begin{cases}
+        \msK\z(E\y)\sp\mfA; \\
+        \msK\z(E\y)\,\tx{是单调集族}
+    \end{cases}\implies\msM\z(\mfA\y)\sb\msK\z(E\y)\]
+    成立，因此只需证
+    \[\begin{cases}
+        \msK\z(E\y)\sp\mfA; \\
+        \msK\z(E\y)\,\tx{是单调集族}
+    \end{cases}.\]
+    \begin{enumerate}
+        \item 先证 $\msK\z(E\y)\sp\mfA$. 任取 $A\in\mfA$，由于 $E\in\mfA$，再结合命题\ref{差和并封闭性命题}可知
+        \[ E\m A,\,E\cap A,\,A\m E\in\msM\z(\mfA\y), \]
+        而这即是说 $A\in\msK\z(E\y)$. 于是 $\mfA\sb\msK\z(E\y)$.
+        \item 再证$\msK\z(E\y)$是单调集族. 任取一列集合 $\z\{H_n\y\}_{n\in\N}\sb\msK\z(E\y)$，满足 $H_n\nearrow H$；那么，由 $\msK\z(E\y)$的定义有
+        \[ E\m H_n,\,E\cap H_n,\,H_n\m E\in\msM\z(\mfA\y). \]
+        由于$H_n\nearrow H$，结合命题\ref{集列极限的运算法则}有
+        \[\z(E\m H_n\y) \searrow \z(E\m H\y),\,\z(E\cap H_n\y) \nearrow \z(E\m H\y),\, \z(H_n\m E\y) \nearrow \z(H\m E\y).\]
+        又由于$\msM\z(\mfA\y)$是单调集列，结合定义可以得到
+        \[ E\m H,\,E\cap H,\, H\m E\in\msM\z(\mfA\y). \]
+        而这满足 $\msK\z(E\y)$的定义. 因此 $H\in\msK\z(E\y)$. 由于$\z\{H_n\y\}_{n\in\N}$是任取的，所以 $\msK\z(E\y)$对单调递增的收敛集列的极限运算封闭. 同理可证$\msK\z(E\y)$对单调递减的收敛集列的极限运算封闭. 两者结合即得 $\msK\z(E\y)$是单调集族.
+    \end{enumerate}
+    综上，式(\ref{1.1式})成立. 现在，我们希望把式(\ref{1.1式})加强为
+    \begin{equation}
+        E\in\msM\z(\mfA\y)\implies\msM\z(\mfA\y)\sb\msK\z(E\y). \label{1.2式}
+    \end{equation}
+    与证明式(\ref{1.1式})时同理，我们仍然只需证
+    \[\begin{cases}
+        \msK\z(E\y)\sp\mfA; \\
+        \msK\z(E\y)\,\tx{是单调集族}
+    \end{cases}.\]
+    \begin{enumerate}
+        \item 任取 $A\in\mfA$，我们希望证明 $A\in\msK\z(E\y)$，即证
+        \[ E\m A,\,E\cap A,\,A\m E\in\msM\z(\mfA\y). \]
+        既然 $A\in\mfA$，由式(\ref{1.1式})得
+        \[ \msM\z(\mfA\y)\sb\msK\z(A\y). \]
+        因此 $E\in\msM\z(\mfA\y)\sb\msK\z(A\y)$. 再结合 $\msK\z(A\y)$的定义可知
+        \[ A\m E,\,A\cap E,\,E\m A\in\msM\z(\mfA\y). \]
+        而这，由于 $\msK\z(E\y)$的定义，即是说$ A\in\msK\z(E\y) $. 于是 $\mfA\sb\msK\z(E\y)$.
+        \item 由于证明式(\ref{1.1式})时“$\msK\z(E\y)$是单调集族”的证明过程中没有用到任何 $E$的特性，因此本条对一切 $E$——也就是说，不管是 $E\in\mfA$还是 $E\in\msM\z(\mfA\y)$时——都成立.
+    \end{enumerate}
+    综上，式(\ref{1.2式})成立.
+    
+    我们利用式(\ref{1.2式})来证明 $\msM\z(\mfA\y)$是代数. 我们挨个检验代数的定义.
+    \begin{enumerate}
+        \item $\Omega\in\mfA\sb\msM\z(\mfA\y)\implies\Omega\in\msM\z(\mfA\y)$.
+        \item 任取 $E\in\msM\z(\mfA\y)$，由式(\ref{1.2式})结合刚证明的 $\Omega\in\msM\z(\mfA\y)$有
+        \[ E\in\msM\z(\mfA\y)\sb\msK\z(\Omega\y)=\z\{ H\in\msM\z(\mfA\y)\;;\;H\c,\,H,\,\vd\in\msM\z(\mfA\y) \y\}, \]
+        而这可以说明 $E\c\in\msM\z(\mfA\y)$. 综上，补封闭性成立.
+        \item 我们希望证明 $\msM\z(\mfA\y)$有有限交封闭性，即
+        \[ \z\{E_i\y\}_{i=1}^n\sb\msM\z(\mfA\y)\implies\bcap_{i=1}^n E_i\in\msM\z(\mfA\y). \]
+        对 $n$用数学归纳法.
+        
+        $n=1$时显然. 假设对 $n-1$成立，即假设 $\forall\,1\le j\le n;\;\displaystyle \bcap_{i\ne j}E_i\in \msM\z(\mfA\y)$. 
+
+        由 $E_j\in\msM\z(\mfA\y)$和式(\ref{1.2式})有
+        \[\msM\z(\mfA\y)\sb\msK\z(E_j\y).\]
+        又由归纳假设结合 $\msK\z(E_j\y)$的定义有
+        \[\begin{array}{lc}
+             & \displaystyle \bcap_{i\ne j} E_i \in\msM\z(\mfA\y)\sb\msK\z(E_j\y) \\
+           \implies & \displaystyle E_j\cap\z( \bcap_{i\ne j} E_i \y)=\bcap_{i=1}^n E_i\in\msM\z(\mfA\y).
+        \end{array}\]
+        即有限交封闭性成立.
+    \end{enumerate}
+    综上，$\msM\z(\mfA\y)$是代数. 现在，我们来证明 $\msM\z(\mfA\y)$还是 $\sigma$-代数. 只需补证可列并封闭性\footnote{因为由de Morgan律，可列并封闭性结合补封闭性立得可列交封闭性.}.
+    
+    任取一列 $\z\{E_n\y\}_{n\in\N}\sb\msM\z(\mfA\y)$，令 $F_n\defi \displaystyle \bcup_{m=1}^n E_m$，则显然 $F_n\nearrow\displaystyle \bcup_{m\in\N} E_m$. 又因为 $\msM\z(\mfA\y)$是单调集族，对单增收敛集列的极限封闭，即得
+    \[ \bcup_{n\in\N}E_n\in\msM\z(\mfA\y). \]
+    即可列并封闭性成立. 于是 $\msM\z(\mfA\y)$是 $\sigma$-代数.
+
+    综上所述，$\mfF\z(\mfA\y)=\msM\z(\mfA\y)$.
+\end{proof}
+\vspace{0.5cm}
+
+\begin{corollary}
+    给定全集 $\Omega$，对于任一集族 $\msC\sb\pws{\Omega}$，有
+    \[\mfF\z(\msC\y)=\msM\z( \mfA\z( \msC \y) \y).\]
+\end{corollary}
+\begin{proof}
+    由定理\ref{代数生成的单调集族和sigma代数相等}结合命题\ref{集族扩张命题}立得.
+\end{proof}
+可见，单调集族可以用来描述 $\mfF\z(\msC\y)$. 但是仍不能从“扩张”的角度来更加“建构”地描述 $\mfF\z(\msC\y)$. 很可惜，从“扩张”的角度“建构”地描述 $\mfF\z(\msC\y)$是一件极其麻烦的事情. 我们来看一下.
+\begin{proposition}[$\mfF\z(\mfS\y)$结构的粗略描述]\label{F(S)的复杂结构}
+    
+\end{proposition}
+\begin{proof}
+    
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+\section{集族\&测度}
+
+
+\subsection{}
+
+\subsection{}
+
+
+
+
+
+
+\section{Carathéodory定理}
+
+
+\section{可测空间和测度空间}
+
+\subsection{可测空间}
+
+\subsection{测度空间}

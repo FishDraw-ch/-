@@ -1,0 +1,434 @@
+
+
+\chapter{集合论}
+\section{朴素集合论}
+本节中，我们使用高中阶段学习的朴素的集合概念. 严谨的集合概念将在\ref{ZF公理体系}节中简介.
+\subsection{基本概念}
+\begin{definition}[幂集]
+    给定一个集合\(A\)，其幂集定义为
+\[   \pws{A} \defi \z\{   A\,\tx{的所有子集}  \y\}.   \]
+\end{definition}
+
+根据定义立得
+\begin{equation*}
+    \begin{array}{c}
+        A\in\pws{A}; \\
+        \vd\in\pws{A}; \\
+        x\in A \implies \z\{x\y\}\in\pws{A}.
+    \end{array}
+\end{equation*}
+故\(\pws{A}\)肯定不是空集.
+
+\begin{example}
+    \[
+    \pws{\vd}=\z\{  \vd \y\};\;\pws{\z\{ \vd \y\}}=\z\{ \vd, \z\{ \vd \y\} \y\}.
+    \]
+\end{example}
+
+\begin{definition}{含于}
+    任二集合 $A$、$B$，定义 \[  A\sb B  \iff  \forall\, x\in A ;\, x\in B. \] 特别地，$A\sb B,\,B\sb A \implies A=B.$
+\end{definition}
+\begin{remark}
+    这是集合包含关系的定义，也是我们证明集合包含关系最最常用的方法. 请抛弃你高中所练习的那些奇技淫巧，回归定义.
+\end{remark}
+\vspace{1cm}
+
+\begin{definition}[集合的基本运算]\label{集合的基本运算定义}
+    给定全集\(\Omega\)，给定集合\(A\,,\,B\in\pws{\Omega}\)，定义以下运算：
+\begin{itemize}
+    \item \(A\)和\(B\)的并：\[   A\cup B \defi \z\{  x\;;\;x\in A\,\tx{或}\,x\in B \y\}.  \]
+    \item \(A\)和\(B\)的交：\[   A\cap B \defi \z\{  x\;;\;x\in A\,\tx{且}\,x\in B \y\}.  \]
+    \item \(B\)在\(A\)中的差：\[  A\m B \defi \z\{ x\in A\;;\;x\notin B \y\}.  \]
+    \item \(A\)和\(B\)的对称差：\[  A\triangle B \defi \z( A\m B \y) \cup \z( B\m A \y).  \]
+    \item \(A\)的补集：\[  A\c \defi \Omega\m A. \]
+\end{itemize}
+\end{definition}
+
+\begin{remark}
+    我们用差集定义了补集. 但其实补集和差集的引入是平等的，没有先后顺序，因为我们也可以用补集来定义差集：\[ A\c \defi \z\{ x\in\Omega\;;\;x\notin A \y\},\, A\m B \defi A \cap B\c.  \]
+\end{remark}
+
+\begin{exercise}
+    在高中，我们学习了用Venn图\footnote{这是英国数学家John Venn在1880年引入的. 但类似的想法早已出现在德意志剧作家、神学家Christian Weise死后四年——1712年出版的其著作中.}来表示集合，请尝试用Venn图来表示两个集合的对称差.
+\end{exercise}
+\vspace{1cm}
+
+
+
+\begin{theorem}{集合的基本运算律}{A.1}
+    若$A$，$B$，$C$是全集$\Omega$上的三个集合，则由定义显然有\footnote{若你觉得不显然，那请你自己证一遍，作为习题.}：
+\begin{enumerate}[(i)]
+    \item \[    A\sb B \iff A \cup B = B \iff A\cap B=A.   \]
+    \item \[    A=\z(A\cap B\y)\cup\z(A\m B\y) = \z(A\cap B\y)\cup\z(A\cap B\c\y).   \] \label{集合运算技巧}
+    \item 交换律： \[   A\cup B=B\cup A,\, A\cap B=B\cap A. \] \label{集合交换律}
+    \item 结合律： \[   A\cup\z(B\cup C\y)=\z( A\cup B \y)\cup C,\, A\cap\z(B\cap C\y)=\z( A\cap B \y)\cap C.   \] 于是我们可以省略上式中的括号. \label{集合结合律}
+    \item 分配律： \[   A\cup\z(B\cap C\y)= \z(A\cup B\y)\cap\z(A\cup C\y),\,A\cap\z(B\cup C\y)= \z(A\cap B\y)\cup\z(A\cap C\y). \] \label{集合分配律}
+    \item de Morgan律： \[    \z(A\cup B\y)\c=A\c\cap B\c,\,\z(A\cap B\y)\c=A\c\cup B\c.   \] \label{de Morgan律}
+\end{enumerate}
+\end{theorem}
+
+\begin{remark}
+    在集合的计算中，如果遭遇卡壳，\ref{集合运算技巧}的使用可能会让你柳暗花明又一村. 在正文中我们会体会到这一点.
+\end{remark}
+\begin{remark}
+    由并集和补集的交换律和结合律，以下式子是良定的：
+    \[   \bcup_{\alpha\in I} A_\alpha,\;\bcap_{\alpha\in I} A_\alpha;  \]
+    于是我们可以把定理\ref{thm:A.1}中的最后两条推广到一般情况，我们将在\ref{集合任意交并的小节}小节介绍.
+\end{remark}
+
+
+\subsection{Cartesian积I}
+众所周知，也可以由\ref{ZF公理体系}节中的公理推知，集合中的元素之间是平等、无序的. 我们可以在无序之上构造有序吗？
+\begin{definition}[有序对]
+    任二数学对象$a$和$b$的有序对记为$\z(a,b\y)$，定义为：\[  \z(a,b\y) \defi \z\{ \z\{a\y\},\z\{a,b\y\} \y\}.    \] 
+    这里称$a$为有序对的第一坐标，$b$为有序对的第二坐标. 当$a=b$时，$\z(a,b\y)=\z\{\z\{a\y\}\y\}$.
+    
+    我们还可以递归地定义$n\in\N^*$个元素$\z\{ x^i \y\}_{i=1}^n$的有序对：\[   \z(  x^1,\cdots,x^n \y) \defi \z( \cdots \z(\z( x^1,x^2\y),x^3\y)\cdots x^n\y),  \] 并称$x^i$是有序对的第$i$坐标.
+\end{definition}
+\begin{remark}
+    注意到我们用“包含”来构造顺序；即某元素比另一元素更“后”，则在某种意义上，靠“后”的元素包含靠“前”的元素. 而这与自然数，乃至序数的构造如出一辙. 具体参见\ref{ZF公理体系}中的“无穷公理”.
+\end{remark}
+\begin{theorem}
+    任二有序对$\z(a_1,b_1\y)$和$\z(a_2,b_2\y)$，那么\[  \z(a_1,b_1\y) =  \z(a_2,b_2\y)  \iff a_1=a_2\,\tx{且}\,b_1=b_2.  \]
+\end{theorem}
+\begin{proof}
+    “$\impliedby$”显然.
+    
+    “$\implies$”：假设$\z(a_1,b_1\y) =  \z(a_2,b_2\y)$成立. 再若$a_1=b_1$，则
+    \[   \z\{ \z\{a_2\y\},\z\{a_2,b_2\y\}\y\} = \z(a_2,b_2\y)=\z(a_1,b_1\y)=\z\{\z\{a_1\y\}\y\}.  \]
+    此时必有$\z\{a_2\y\}=\z\{a_2,b_2\y\}=\z\{a_1\y\}$，从而$a_2=b_2=a_1=b_1$.
+
+    现在，再若$a_1\ne b_1$，则
+    \[   \z\{ \z\{a_2\y\},\z\{a_2,b_2\y\}\y\} = \z(a_2,b_2\y)=\z(a_1,b_1\y)= \z\{ \z\{a_1\y\},\z\{a_1,b_1\y\}\y\}.  \]
+    等号最右边的集合有两个元素，所以等号最左边的集合也必须有两个元素，从而$a_2\ne b_2$. 因此\[\z\{a_2\y\}=\z\{a_1\y\},\,\z\{a_2,b_2\y\}=\z\{a_1,b_1\y\}.\] 此即$a_1=a_2\,\tx{且}\,b_1=b_2$.
+\end{proof}
+
+
+\begin{definition}[Cartesian积]
+    $A$和$B$是任二集合. 定义它们的Cartesian积为：\[   A\times B \defi \z\{ \z(a,b\y)\;;\;a\in A\,\tx{且}\,b\in B \y\}.   \] 同理，我们可以递归地定义$n\in\N^*$个集合$\z\{ X_i \y\}_{i=1}^n$的Cartesian积：\[    \prod_{i=1}^n X_i = \z(  X_1\times\cdots\times X_{n-1}  \y)\times X_n = X_1\times\cdots\times X_n.   \] 括号可以省略因为Cartesian积具有结合性. 证明下附. 
+\end{definition}
+\begin{example}
+    若$A=\z\{a,b\y\}$，$B=\z\{i,j,k\y\}$，则\[   A\times B = \z\{    \z(a,i\y),\z(b,i\y),\z(a,j\y),\z(b,j\y),\z(a,k\y),\z(b,k\y)   \y\}.   \]
+\end{example}   
+\begin{exercise}
+    证明Cartesian积具有结合性，即对任三集合$A$、$B$和$C$，有\[\z(A\times B\y)\times C = A\times\z(B\times C\y).\]
+\end{exercise}
+\begin{solution}
+    事实上，只需证明 $A\times \z(B\times C\y)$同构于 $\z(A\times B\y)\times C$即可.
+    \begin{align*}
+        A\times \z(B\times C\y) &= \z\{   \z(  \z(a,b\y),c  \y)=\z(a,b,c\y) \;;\; a\in A,\, b\in B,\, c\in C  \y\} \\
+        &\cong \z\{  \z( a,\z(b,c\y) \y) \;;\; a\in A,\, b\in B,\, c\in C  \y\}  = \z(A\times B\y)\times C.
+    \end{align*}
+    证毕.
+\end{solution}
+\begin{exercise}
+    证明若$A\ne B$，则$A\times B\ne B\times A$和\[  A\times B=\vd \iff A=\vd\,\tx{或}\,B=\vd.  \]
+\end{exercise}
+
+\subsection{映射}
+我们由Cartesian积的概念来严谨地定义映射.
+\begin{definition}[对应法则]\label{对应法则定义}
+    设$C$和$D$是任两个集合. 一个对应法则是指一个集合$L\sb C\times D$，满足
+    \[   \z(c,d\y)\in L,\,\z(c,d'\y)\in L \implies d=d'.   \]
+    定义对应法则$L$的定义域和值域为
+    \begin{align*}
+        \mathbf{Dom}\z(L\y) \equiv L\,\tx{的定义域}\, &\defi \z\{   c\in C\;;\; \exists\, d\in D,\, \z(  c,d \y)\in L    \y\}; \\
+        \mathbf{Im}\z(L\y) \equiv L\,\tx{的值域}\, &\defi \z\{   d\in D\;;\; \exists\, c\in C,\, \z(  c,d \y)\in L    \y\}.
+    \end{align*}
+\end{definition}
+\begin{definition}[映射]
+    一个映射$f$被定义为一个有序对：
+    \[f\defi \z(   L,B  \y),\]
+    其中$B\sp \mathbf{Im}\z( L \y)$，称为“$f$的陪域”；且我们定义
+    \begin{align*}
+        \mathbf{Dom}\z(f\y) \equiv f\,\tx{的定义域}\, &\defi \mathbf{Dom}\z(L\y); \\
+        \mathbf{Im}\z(f\y) \equiv f\z( \mathbf{Dom}\z(f\y) \y) \equiv f\,\tx{的值域}\, &\defi \mathbf{Im}\z(L\y).
+    \end{align*}
+    我们引入记号\footnote{这组记号由Euler在1734年引入.}：
+    \begin{align*}
+        f\, :\quad \; A &\ra B \\
+        a &\mapsto f\z(a\y),
+    \end{align*}
+    其中$A\equiv\mathbf{Dom}\z(f\y)$是$f$的定义域，$B$是$f$的陪域，$f\z(a\y)$是$B$中满足$\z( a,f\z(a\y) \y)\in L$的那个唯一元素.
+
+    特别地，如果映射 $f$的陪域 $B$是一个数集，则称映射 $f$为一个函数.
+\end{definition}
+\begin{remark}
+    我们为什么要在值域的基础上额外引入一个陪域呢？这是因为“值域”可以理解为函数值的“精确”范围，而陪域可以理解为函数值的“粗糙”范围；而很多映射的值域没法轻松求出来，而陪域肯定都很好求，因为大不了我们把陪域取得很广很广，总能把值域盖住. 
+\end{remark}
+\begin{example}
+    Lambert的$W$函数定义为：
+    \[   W\;:\; \z[-\frac1\ee,+\wq\y) \ra \R\;;\,\tx{满足}\;W\z(x\y)\ee^{W\z(x\y)} = x,\,W\z(x\y)\,\tx{单增}.   \]
+    其陪域显然为$\R$，试求其值域，可以得到$\z[ -1,+\wq \y)$，请你自己求一下来感受难度.
+\end{example}
+\vspace{1cm}
+
+\begin{proposition}[关于映射]
+    我们罗列一下映射的相关内容.
+    \begin{itemize}
+        \item 任一映射$F\;:\; A\ra B$，任一$A_0\sb A$，定义$f$在$A-0$上的限制为映射：\[  \z. f \y|_{A_0} \;:\; A_0 \ra B.    \]
+        \item 映射最重要的性质恐怕就是单射、满射和双射了. 我们有：
+        \begin{itemize}
+            \item $f$是单设当且仅当 \[   \forall\, a,b\in A;\; f\z(a\y)=f\z(b\y) \implies a=b.  \]
+            \item $f$是满射当且仅当 \[   \forall\, b\in B,\,\exists\, a\in A,\,f\z(a\y)=b.  \]
+            \item $f$是双射当且仅当它既是单的又是满的.
+        \end{itemize}
+        \item 定义$f$和$g$的复合如下：
+        \[   g\circ f \;:\; A\ra C,\,a\mapsto c;\;\exists\,b\in B,\;f\z(a\y)=b,\,g\z(b\y)=c.   \] 
+        显然$g\circ f$仅当$\mathbf{Im}\z(f\y)\sb\mathbf{Dom}\z(g\y)$时有定义. 注意到一般情况下$f\circ g \ne g\circ f$.
+        \item 若$f$是双射，则可定义其逆映射$f\inv\;:\;B\ra A$如下：
+        \[   f\inv\z(b\y)=a \iff f\z(a\y)=b.   \]
+    \end{itemize}
+\end{proposition}
+我们紧接着给出一些常用的基本映射.
+\begin{definition}[恒等映射和常值映射]
+    我们有两个特别重要的映射：
+         \begin{itemize}
+             \item 恒等映射：$\id_A \;:\; A\ra A\,,\,a\mapsto a.$
+             \item 常值映射：$c \;:\; A\ra B\,,\,a\mapsto b$，其中$b$是固定的.
+         \end{itemize}
+\end{definition}
+\begin{definition}[Gau\ss 取整函数]
+    对于任意 $x\in\R$，定义函数
+    \begin{align*}
+        \z\lfloor \,\cdot\, \y\rfloor \;:\quad \R &\ra \Z \\
+        x &\mapsto \z\lfloor x \y\rfloor \,\tx{为不超过}\,x\,\tx{的最大整数.}
+    \end{align*}
+    即 $x$的整数部分. 同理可定义
+    \begin{align*}
+        \z\lceil \,\cdot\, \y\rceil \;:\quad \R &\ra \Z \\
+        x &\mapsto \z\lceil x \y\rceil \,\tx{为不小于}\,x\,\tx{的最大整数.}
+    \end{align*}
+    也可定义
+    \begin{align*}
+        \z\{ \,\cdot\, \y\} \;:\quad \R &\ra \Z \\
+        x &\mapsto \z\{ x \y\}=x-\z\lfloor x \y\rfloor \,\tx{，即}\,x\,\tx{的小数部分.}
+    \end{align*}
+    注意，请不要把“取小数”函数的花括号与集合的花括号混淆.
+\end{definition}
+\begin{definition}[示性函数]\label{示性函数}
+    给定任二集合$A_0$和$A$，要求$A_0\sb A$，则可定义$A_0$在$A$上的示性函数$\chi_{A_0}\defi$
+    \begin{align*}
+        \chi_{A_0} \;:\qquad A &\ra \z\{0,1\y\} \\
+        A\ni a &\mapsto \chi_{A_0}\z(a\y) = \begin{cases}
+            1, \quad &a\in A_0;\\
+            0, \quad &a\in A\m A_0
+        \end{cases}.
+    \end{align*}
+    示性函数在测度论中使用极其频繁.
+
+    由定义显然示性函数与全集上的子集是一一对应的.
+\end{definition}
+
+\begin{theorem}[单射和满射的一般定义]{单射和满射的一般定义}
+    \begin{enumerate}
+        \item 任一映射$f$，若$\exists\, g \;:\; B\ra A;\,g\circ f = \id_A$，即 \[   \forall\,a\in A;\;g\z(f\z(a\y)\y)=a;   \] 那么$f$是单射.
+        \item 任一映射$f$，若$\exists\, h \;:\; B\ra A;\,f\circ h = \id_B$，即 \[   \forall\,a\in A;\;f\z(h\z(b\y)\y)=b;   \] 那么$f$是满射.
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    \begin{enumerate}
+        \item \(    f\z(a\y)=f\z(b\y) \implies a=g\z( f\z(a \y)  \y)=g\z( f\z(b \y) \y) = b.   \)
+        \item \(    \forall\, b\in B,\,\exists\, a=h\z(b\y)\in A,\,f\z(a\y)=f\z(h\z(b\y)\y)=b.    \)
+    \end{enumerate}
+\end{proof}
+于是我们也可以用定理\ref{thm:单射和满射的一般定义}中的式子来定义单射和满射. 这样的定义方式会在范畴论中有用.
+
+\begin{definition}[像集和原像集]
+    给定映射$f\;:\;A\ra B$，给定$A_0\sb A,\,B_0\sb B$，定义：
+    \begin{enumerate}
+        \item $A_0$在$f$下的像集$\equiv f\z(A_0\y) \defi \z\{ f\z(a\y)\;;\;a\in A_0  \y\}\sb B$.
+        \item $B_0$在$f$下的原像集$\equiv f\inv\z(B_0\y) \defi \z\{ a\;;\;f\z(a\y)\in B_0  \y\}\sb A$. 
+        特别地，如果$B_0=\z\{b\y\}$，则符号$f\inv\z(b\y)\defi f\inv\z(  \z\{b\y\}  \y)$在一般情况下不在是一个单元素集；如果$f$本身是一个双射，则符号$f\inv\z(b\y)$与之前的定义相同. 这里虽然出现了符号的滥用，但是这个滥用在实践中由语境可以轻松判断.
+    \end{enumerate}
+    显然有以下包含关系式成立：\[     A_0\sb f\inv\z(  f\z( A_0 \y)  \y),\,B_0\sp f\z(  f\inv\z(   B_0  \y)  \y).   \]
+\end{definition}
+我们可以找到例子说明上述二包含关系的等号不一定成立.
+\begin{example}
+    令
+    \begin{align*}
+        f\;:\; \R &\ra \R, \\
+        x &\mapsto 3x^2+2.
+    \end{align*}
+    取$A_0=\z[0,1\y],\,B_0=\z[0,5\y]$，则
+    \[  f\inv\z(  f\z( A_0 \y)  \y)=\z[-1,1\y]\supset A_0 ,\, f\z(  f\inv\z(   B_0  \y)  \y)=\z[2,5\y]\subset B_0.  \]
+\end{example}
+
+\begin{proposition}
+    我们不加证明地给出以下关系式(如果你是初学者，我强烈建议你全部自己证一遍)：
+
+    若$f\;:\;A\ra B$是映射，且$A_0,\,A_1\sb A\,;\;B_0,\,B_1\sb B$，有
+    \begin{enumerate}[(i)]
+        \item $B_0\sb B_1 \implies f\inv\z(B_0\y) \sb f\inv\z(B_1\y)$；
+        \item $f\inv \z(  B_0\cup B_1  \y)= f\inv\z(B_0\y)\cup f\inv\z(B_1\y)$；
+        \item $f\inv \z(  B_0\cap B_1  \y)= f\inv\z(B_0\y)\cap f\inv\z(B_1\y)$；
+        \item $f\inv \z(  B_0\m B_1  \y)= f\inv\z(B_0\y)\m f\inv\z(B_1\y)$；
+        \item $A_0\sb A_1 \implies f\z(A_0\y)\sb f\z(A_1\y)$；
+        \item $f\z(A_0\cup A_1\y)=f\z(A_0\y)\cup f\z(A_1\y)$；
+        \item $f\z(A_0\cap A_1\y)\sb f\z(A_0\y)\cap f\z(A_1\y)$；
+        \item $f\z(A_0\m A_1\y)\sp f\z(A_0\y)\m f\z(A_1\y)$.
+    \end{enumerate}
+\end{proposition}
+\begin{example}
+    我们给出(vii)和(viii)等号不成立的例子. 取常值映射 $\forall\, a\in A,\,f\z(a\y)=b\in B$为给定常元素. 不妨设 $A$至少含有两个不同元素$a_0$和$a_1$.
+    \begin{enumerate}
+        \item 取 $A_0=\z\{a_0\y\},\,A_1=\z\{a_1\y\}$，则 $A_0\cap A_1=\vd$. 于是
+        \begin{align*}
+            f\z(A_0\cap A_1\y) &= f\z(\vd\y)=\vd \\
+            &\subset \z\{b\y\}=\z\{b\y\}\cap\z\{b\y\} \\
+            &= f\z(A_0\y) \cap f\z(A_1\y).
+        \end{align*}
+        \item 取 $A_0=\z\{a_0,a_1\y\},\,A_1=\z\{a_1\y\}$. 则 $A_0\m A_1=\z\{a_0\y\},\,f\z(A_0\y)=f\z(A_1\y)=\z\{b\y\}$. 于是
+        \[   f\z(A_0\m A_1\y)=\z\{b\y\}\supset\vd=f\z(A_0\y)\m f\z(A_1\y).  \]
+    \end{enumerate}
+\end{example}
+\begin{remark}
+    这种不对称性来源于对应法则的定义\ref{对应法则定义}中用到了不对称的有序对，且条件\[\z(c,d\y)\in L,\,\z(c,d'\y)\in L \implies d=d'\]只对有序对第二坐标位置上的元素有限制.
+\end{remark}
+
+\vspace{1cm}
+\begin{definition}\label{映射集的定义}
+    任二集合$A$、$B$，我们将全体$A\ra B$的映射所成的集合记为$B^A$.
+\end{definition}
+\begin{example}
+    我们再来考察一下一个集合$A$的幂集 $\pws{A}$. 我们将幂集记为 $2$的幂次的形式不仅仅是因为在 $A$有限的情况下，$A$的幂集的元素个数正好等于 $2$的 $A$的元素个数次幂，更是因为由以上定义，若把底数“$2$”看成一个二元集 $\z\{ 0,1 \y\}$，则$\z\{ 0,1 \y\}^A$就是全体 $A$的子集的示性函数之集合. 而示性函数与其子集一一对应，因此 $\z\{ 0,1 \y\}^A$与 $\pws{A}$同构.
+\end{example}
+\begin{example}
+    任一实数列$\z\{ a_n \y\}_{n\in\N}$都可以看作一个从$\N$到$\R$的映射，因此全体实数列构成的集合就记作$\R^\N$. 同理，全体复数列构成的集合就是$\C^\N$.
+\end{example}
+
+\vspace{1cm}
+\begin{remark}
+    在测度论中，我们会经常用到形如$f\inv\z(-\wq,c\y]$、$f\inv\z[c,+\wq\y)$或$f\inv\z(c,+\wq\y)$之类的集合.
+\end{remark}
+
+
+
+\subsection{集合的任意交、并和Cartesian积II}\label{集合任意交并的小节}
+有了映射的概念，我们可以来定义数学中非常重要的一个概念：指标.
+
+我们将以集合为元素的集合称为集族.
+\begin{definition}[指标映射]
+    \begin{itemize}
+        \item 设非空集族$\msA$. 定义$\msA$的指标映射是满射：
+        \[  f\;:\;I\ra\msA.  \] 其中$I$是一个任意集合，被称为指标集.
+        \item 定义有序对$\z( \msA,f \y)$为“$\msA$的指标类”.
+        \item 给定$\alpha\in I$，把集合$f\z(\alpha\y)\in\msA$记作$A_\alpha$，并把$\msA$的指标类记作$\z\{ A_\alpha\y \}_{\alpha\in I}$.
+    \end{itemize}
+\end{definition}
+有了指标的概念，我们可以推广定理\ref{thm:A.1}中的\ref{集合分配律}和\ref{de Morgan律}.
+\begin{definition}[集合的任意交、并]
+    由定理\ref{thm:A.1}中的\ref{集合交换律}交换律和\ref{集合结合律}结合律，以下定义是良定的：
+    \begin{align*}
+        \bcup_{\alpha\in I} A_\alpha &\defi \z\{     x\;;\;\exists\,\alpha\in I,\,x\in A_\alpha.   \y\}, \\
+        \bcap_{\alpha\in I} A_\alpha &\defi \z\{     x\;;\;\forall\,\alpha\in I,\,x\in A_\alpha.   \y\}.
+    \end{align*}
+    特别地，若
+    \begin{itemize}
+        \item $I=\z\{ 1,\cdots,n  \y\}$，则记
+        \[  \bcup_{\alpha\in I} A_\alpha=\bcup_{i=1}^n A_i\,,\; \bcap_{\alpha\in I} A_\alpha=\bcap_{i=1}^n A_i;  \]
+        \item $I=\N$，则记
+        \[  \bcup_{\alpha\in I} A_\alpha=\bcup_{i\in\N} A_i\,,\; \bcap_{\alpha\in I} A_\alpha=\bcap_{i\in\N} A_i.  \]
+    \end{itemize}
+\end{definition}
+下面推广定理\ref{thm:A.1}中的\ref{集合分配律}和\ref{de Morgan律}.
+\begin{theorem}[一般的交、并的分配律和de Morgan律]\label{分配律和de Morgan律推广}
+    \begin{itemize}
+        \item 分配律：\begin{align*}
+            \bcup_{j=1}^n \z(  \bcap_{k_j=1}^{m_j}  E_j^{k_j}  \y) &= \bcap_{k_1=1}^{m_1} \bcap_{k_2=1}^{m_2} \cdots \bcap_{k_n=1}^{m_n} \z( \bcup_{j=1}^n  E_j^{k_j} \y)\;,\\
+            \bcap_{j=1}^n \z(  \bcup_{k_j=1}^{m_j}  E_j^{k_j}  \y) &= \bcup_{k_1=1}^{m_1} \bcup_{k_2=1}^{m_2} \cdots \bcup_{k_n=1}^{m_n} \z( \bcap_{j=1}^n  E_j^{k_j} \y)\;.
+        \end{align*}
+        \item de Morgan律：\[ \z(  \bcup_{\alpha\in I} A_\alpha  \y)\c=\bcap_{\alpha\in I} A_\alpha\c \;,\;\; \z(  \bcap_{\alpha\in I} A_\alpha  \y)\c=\bcup_{\alpha\in I} A_\alpha\c \,.\]
+    \end{itemize}
+\end{theorem}
+\vspace{1cm}
+
+下面我们引入数组的概念来推广Cartesian积.
+\begin{definition}[数组]
+设$m\in\N^*$，给定集合$X$，
+\begin{itemize}
+    \item 定义$X$的$m$-数组为映射
+    \[  \hat{x} \;:\; \z\{  1,\cdots,m \y\} \ra X ,   \] 对每个$i\in\z\{  1,\cdots,m \y\}$，记$x_i=\hat{x}\z(i\y)$，并称为$\hat{x}$的$i$坐标. 这样，我们就可以把一个$m$-数组映射表示成$\hat{x}=\z(  x_1,\cdots,x_n \y)$.
+    \item 定义$X$的$\omega$-数组为映射
+    \[  \hat{x} \;:\; \N^*\ra X\,,\; n\mapsto x_n=\hat{x}\z(n\y),  \]
+    这样，我们就可以把一个$\omega$-数组映射表示成$\hat{x}=\z( x_n \y)_{n\in\N^*}$.
+    \item 一般地，定义$X$的$I$-数组为映射
+    \[  \hat{x} \;:\; I\ra X\,,\; \alpha\mapsto x_\alpha=\hat{x}\z(\alpha\y),  \]
+    这样，我们就可以把一个$I$-数组映射表示成$\hat{x}=\z( x_\alpha \y)_{\alpha\in I}$.
+\end{itemize}
+\end{definition}
+\begin{definition}[一般的Cartesian积]
+    设$\z\{ A_\alpha \y\}_{\alpha\in I}$是集族的指标类，$m\in\N^*$；
+    \begin{itemize}
+        \item 若$I=\z\{  1,\cdots,m \y\}$，令$X=\displaystyle \bcup_{i=1}^m A_i $，定义这个指标类的Cartesian积，写作\[  \prod_{i=1}^m  A_i\,,  \] 定义为$X$的全体满足$x_i\in A_i$的$m$-数组构成的集合.
+        \item 若$I=\N^*$，令$X=\displaystyle \bcup_{n\in\N^*} A_n $，定义这个指标类的Cartesian积，写作\[  \prod_{n\in\N^*}^m  A_n\,,  \] 定义为$X$的全体满足$x_n\in A_n$的$\omega$-数组构成的集合.
+        \item 若$I$是一般集合，令$X=\displaystyle \bcup_{\alpha\in I} A_\alpha $，定义这个指标类的Cartesian积，写作\[  \prod_{\alpha\in I}  A_\alpha\,,  \] 定义为$X$的全体满足$x_\alpha\in A_\alpha$的$I$-数组构成的集合.
+    \end{itemize}
+\end{definition}
+\begin{remark}
+    结合定义\ref{映射集的定义}，显然有 \[   \prod_{\alpha\in I}  A_\alpha \sb \z( \bcup_{\alpha\in I} A_\alpha  \y)^I,  \] 其中等号取到当且仅当每个$A_\alpha$都相等.
+\end{remark}
+
+
+
+
+\section{Zermelo-Fraenkel公理体系}\label{ZF公理体系}
+
+
+\begin{axiom}[无穷公理]
+    
+\end{axiom}
+\begin{axiom}[幂集公理]
+    
+\end{axiom}
+\begin{axiom}[外延公理]
+    
+\end{axiom}
+\begin{axiom}[替代公理模式]
+    
+\end{axiom}
+\begin{axiom}[分离公理模式]
+    
+\end{axiom}
+\begin{axiom}[正则公理]
+    
+\end{axiom}
+\begin{axiom}[并集公理]
+    
+\end{axiom}
+\begin{axiom}[配对公理]
+    
+\end{axiom}
+
+
+\subsection{选择公理vs.决定公理}\label{选择公理和决定公理}
+
+\begin{axiom}[选择公理]
+    
+\end{axiom}
+\begin{axiom}[决定公理]
+    
+\end{axiom}
+
+\section{基数vs.序数}
+
+\subsection{基数}\label{基数}
+
+
+
+\begin{postulate}[连续统假设]
+    
+\end{postulate}
+
+
+\subsection{序数}
+\begin{definition}[序数]
+    
+\end{definition}
+
+
+
+
+
+
+

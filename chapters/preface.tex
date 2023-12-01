@@ -1,0 +1,77 @@
+\chapter*{前言}
+
+
+\section*{作者的话}
+\subsection*{实分析是什么？}
+实分析是一门数学基础课，无论你要学习纯数学，抑或是物理学和经济学等；实分析都是基础中的基础. 实分析是什么呢？通俗地说，实分析是给数学分析擦屁股的. 因为数学分析中讨论的函数具有一些基本的\textbf{良好}性质，比如连续性、可微性、甚至是光滑性. 而全体实变量函数并非都有这般好的性质，更何况其中很多性质\textbf{较差}的函数在物理学或实际生产生活比如经济学和工程学中还要用到. 所以，数学分析是远远不够的. 实分析就是这样的一门理论，像受虐狂一般专门挑那些性质\textbf{差}的病态函数来研究，毕竟性质\textbf{较好}的函数基本上都在数学分析中研究得差不多了. 
+
+然而，在实分析之后，我们也会学习复分析. 与实分析恰恰相反，复分析几乎就挑那些拥有\textbf{最好}的性质——某种程度上比数学分析中那些\textbf{较好}的性质还要好——的函数(解析函数、全纯函数等)来研究. 所以，正是实分析本身的目的以及与后面紧接着的复分析的对比，造就了一句经典的评价：“复分析是一门很\textbf{优雅}的理论，而实分析是一门很\textbf{丑陋}的理论.”这是一句中肯的评价，但是脏活总得有人干，总要有人负起责任来擦屁股. 善后也是一件光荣的工作.
+
+\subsection*{为什么会有实分析？}
+
+
+
+\begin{flushright}
+    $\begin{array}{c}
+        \tx{于金圣} \\
+        \tx{2023年11月12日} \\
+        \tx{于法国，图卢兹}
+    \end{array}$
+\end{flushright}
+\vspace{0.5cm}
+
+本书更新地址：
+%\url{}
+
+\section*{前置知识}
+本书要求读者系统学习过数学分析，并且对其内容仍保持熟悉，尤其是Cauchy列、$\R$的拓扑性质、基础点集拓扑学、Riemann积分以及换序理论等；数学分析之外，还要求读者对公理化集合论有一点最基本的了解，尤其是把有限、可列、不可列这三个概念辨析地十分清晰；如果还了解一点最基本的代数学知识，那再好不过了. 在阅读中感到前置知识不熟或已生疏的读者可以优先略读作为附录的本书的第四部分：前置知识速览. 在用到较为明确的前置知识(比如引用数学分析或者代数学中的结论)的时候，本书都会给出暗红色字体的超链接，点击即可跳转到第四部分相应内容处. 建议读者在遇到自己并不清楚的引用内容时立刻点击跳转去复习一下. 本书还要求读者有一定的英文能力，因为很多字母的选用都是相关概念英文的首字母或缩写；但碍于篇幅本书不会给出这些概念的英语，需要读者自己查询或联想.
+
+\section*{符号说明}
+
+一些可能需要单独强调的数学记号：
+\begin{itemize}
+    \item $\bbF_+$表示的是全序集(主要是域) $\bbF$中\textbf{非负}元素的集合\textbf{而非严格正}元素；同理$\bbF_-$表示$\bbF$中\textbf{非正}元素的集合；
+    \item $\bbG^*$表示一个幺半群去掉群加法零元，比如：$\N^*=\N\m\z\{0\y\}$、对$n$阶置换群$S_n$有$S_n^*=S_n\m\z\{\id\y\}$；同理$\bbA^\times$表示一个幺环去掉环乘法幺元，比如：$\R^\times=\R\m\z\{ 1 \y\}$、对于任意集合$E$的Boole环$\z( \pws{E},\triangle,\cap \y)$有 $\z( \pws{E},\triangle,\cap \y)^\times=\z( \pws{E}\m\z\{ E \y\},\triangle,\cap \y)$；
+    \item “$\forall $”表示“\textbf{对于}任意/任一……”而非单纯的“任意/任一……”，“$\exists !$”表示“存在\textbf{唯一}的……”；
+    \item “$\equiv$”表示“恒等于”，“$\defi$”表示“定义为”，“$\cong$”表示“同构于”；
+    \item “$a<\wq$”代表“$a$是有限数”；
+    \item 任一集合 $A$，$A$ 的幂集统一记作$\pws{A}$、$A$的补集统一记作$A\c$；若$A$是一个拓扑空间$\z(\Omega,\tau\y)$上的集合，$A$的闭包统一记作 $\bar{A}$；
+    \item 复数 $z$ 的共轭统一记作 $\bar{z}$ ；
+    \item 一个集函数作用在单独一个区间上时，最外层的小括号可以省略，只保留区间本身的括号；
+    \item 无交并符号$\sqcup$：其意义与一般的并集完全相同，只不过要求参与此并集运算的集合间两两交集为$\vd$；若在语境中，尤其是在叙述定理/定义/引理/命题等的条件时，若未证明某族集合间两两交集为$\vd$就直接使用无交并符号，则代表给该定理/定义/引理/命题额外补充一条条件：这族集合两两无交. 这种特殊的并集在测度论中的使用频率会远超普通的并集.
+    \item 证明部分右下角的“$\blacksquare$”符号表示“证毕”；
+    \item 本书统一使用“$\sb$”和“$\sp$”来表示子集，“$\subset$”和“$\supset$”表示真子集；
+    \item “$\bar{\R}$”和“$\bar{\R}_+$”分别表示扩充实数集$\R\cup\z\{\pm\wq\y\}$和$\R_+\cup\z\{ +\wq \y\}$；“$\H$”表示Hamilton四元数集；
+    \item 语境中积分变量$x$十分明确、或并不重要时，积分可以如下简写：
+    \[   \int_D f\z(x\y)\d x = \int_D f;   \]
+    \item 任意映射 $f$，使用 $f^n$表示其自复合 $n$次后得到的映射 $f^n\z(x\y)$. 若$f$的陪域是一个环，$f^n\z(x\y)$也可表示 $\z[f\z(x\y)\y]^n$，只要阅读认真，通过上下文都可明确区分.
+\end{itemize}
+阅读中遇到的其他你觉得有歧义或你不认识的基础数学符号也可翻阅本书的第四部分.
+
+
+\section*{参考资料}
+本书主要参考资料：
+\begin{enumerate}
+    \item 《实变函数论与泛函分析(第二版修订本)》，夏道行、吴卓人、严绍宗、舒五昌，复旦大学；
+    \item 《Introduction to Measure and Intergration》，\\ S. James Taylor，Westfield College(现已与Queen Mary College合并)，University of London；
+    \item 视频课《Mesure Theory》及其讲义：\\ \url{https://www.youtube.com/watch?v=llnNaRzuvd4&list=PLo4jXE-LdDTQq8ZyA8F8reSQHej3F6RFX}、\url{https://w3.impa.br/~landim/Cursos/MT.pdf}，\\ Claudio Landim，Instituto Nacional de Matem\'{a}tica Pura e Aplicada；
+    \item 《基本分析学讲义》：\url{https://math.seu.edu.cn/ly/list.htm}，李逸，东南大学数学学院；
+    \item 《代数学基础》：\url{https://www.wwli.asia/downloads/books/Al-jabr-1.pdf}，\\ 李文威，北京大学数学科学学院；
+    \item 《解析入門》，小平\ 邦彦；
+    \item 《实分析讲义》：\url{https://www.maki-math.com/#/courses/74}，Maki's Lab；
+    \item 《数学分析讲义》：\\ \url{https://www.maki-math.com/#/courses/77}、\url{https://www.maki-math.com/#/courses/79}，Maki's Lab；
+    \item 《实分析中的反例》，汪林，云南大学；
+    \item 《Analysis》，Herbert Amann，Institut f\"{u}r Mathematik，Universit\"{a}t Z\"{u}rich \& Joachim Escher，Institut f\"{u}r Angewandte Mathematik，Leibniz Universit\"{a}t Hannover.
+\end{enumerate}
+
+\section*{模板}
+本书模板为ElegantBook，这是一个非常好用的\LaTeX{}模板！地址：
+\begin{itemize}
+    \item GitHub：\url{https://github.com/ElegantLaTeX/}
+    \item Overleaf：\url{https://www.overleaf.com/latex/templates/elegantbook-template/zpsrbmdsxrgy}
+\end{itemize}
+
+
+
+
+

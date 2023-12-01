@@ -1,0 +1,101 @@
+\documentclass[lang=cn,10pt,device=pad,scheme=chinese,color=blue,thmcnt=section]{elegantbook}
+
+%西里尔字母显示包，有冲突bug，在最后的最后再取消注释%
+%\usepackage[OT2,utf8]{fontenc}
+
+
+%--------水印--------%
+\usepackage{draftwatermark, everypage}
+\SetWatermarkText{于\,\qquad\qquad\; 金\,\qquad\qquad\; 圣 \\
+                  \vspace{3cm}\\
+                  Université Fédérale Toulouse Midi-Pyrénées}
+\SetWatermarkLightness{0.92}
+\SetWatermarkScale{0.22}
+
+%----自定义指令----%
+\input{newcommands}   
+
+
+%----首行缩进----%
+\setlength{\parindent}{2em}
+\setcounter{tocdepth}{2}
+
+
+
+%==========标题页==========%
+
+
+\title{实分析入门}
+
+\author{于金圣}
+\institute{\'{E}cole d'\'{E}conomie de Toulouse -- Université Toulouse Capitole}
+\date{\today}
+\bioinfo{\LaTeX{}模板}{ElegantBook}
+
+\setcounter{tocdepth}{3}
+
+\logo{logo.png}  %封面图和logo%
+\cover{cover.jpg}
+
+% 本文档命令
+\usepackage{array}
+\newcommand{\ccr}[1]{\makecell{{\color{#1}\rule{1cm}{1cm}}}}
+
+% 修改标题页的色带
+\definecolor{customcolor}{RGB}{210,250,250}
+\colorlet{coverlinecolor}{customcolor}
+
+
+%===============================正文================================%
+
+\begin{document}
+
+
+\maketitle
+\frontmatter
+
+
+\input{chapters/preface}
+
+
+\tableofcontents
+
+
+\mainmatter
+
+
+
+\setcounter{chapter}{-1}
+
+\part{实变函数论}
+\include{chapters/0.tex}
+
+
+\include{chapters/1}
+
+\include{chapters/2}
+
+\part{概率论的公理化}
+\include{chapters/3}
+
+
+\part{泛函分析初步}
+
+
+\include{chapters/4}
+
+
+
+\appendix
+\part{附录：前置知识速览\footnote{本部分的内容仅为了方便读者查询而附，要求读者基本学习过且大体上仍保持熟悉，也可以快速学习本部分中你不知道的内容. 本部分\textbf{不能}当作教材来系统性学习.}}
+
+
+\include{chapters/apA}
+
+\include{chapters/apB}
+
+\include{chapters/apC}
+
+
+
+\end{document}

@@ -1,0 +1,291 @@
+
+
+\chapter{数学分析和拓扑学}
+
+
+\section{实数理论}
+
+
+
+\section{极限论}
+
+\begin{definition}[序列]
+    
+\end{definition}
+\begin{definition}[滤子基]
+    
+\end{definition}
+\begin{definition}[上、下极限]
+    
+\end{definition}
+\begin{definition}[极限]
+    
+\end{definition}
+
+\subsection{数列}
+
+\subsection{函数列}
+
+\subsection{集列}
+\begin{proposition}[集列极限的运算法则]\label{集列极限的运算法则}
+    
+\end{proposition}
+\begin{definition}[单调集列]\label{单调集列定义}
+    集列 $\z\{E_n\y\}_{n\in\N}$被称为“单调递增的”，记作“$E_n\nearrow$”，当且仅当
+    \[ \forall\,n\in\N,\;E_n\sb E_{n+1}; \]
+    被称为“单调递减的”，记作“$E_n\searrow$”，当且仅当
+    \[ \forall\,n\in\N,\;E_n\sp E_{n+1}. \]
+
+    特别地， 若 $\z\{E_n\y\}_{n\in\N}$收敛于$\displaystyle E= \lim_{n\to+\wq} E_n$，且 $E_n\nearrow$或 $E_n\searrow$，那么将 $E_n\ra E$记作“$E_n\nearrow E$”或“$E_n\searrow E$”.
+\end{definition}
+\begin{corollary}\label{单调收敛集列推论}
+    对于任意集列 $\z\{E_n\y\}_{n\in\N}$，有
+    \[\begin{array}{c}
+       \displaystyle E_n\nearrow E \implies E=\bcup_{n\in\N} E_n;  \\
+       \displaystyle E_n\searrow E \implies E=\bcap_{n\in\N} E_n.
+    \end{array}\]
+\end{corollary}
+
+\section{连续性理论初步}
+\begin{definition}[振幅]\label{函数振幅定义}
+    设有界函数 $f\;:\;D\ra\R$，$I\sb D$，令 \[   \omega\z(I\y)\defi\sup f\z(I\y) - \inf\z(I\y)   \] 称为$f$在 $I$上的振幅.
+
+    再设 $x_0$是 $D$的内点(定义\ref{内点定义})，则 $\exists\,N_\delta\z(x_0\y)\sb D$，令 \[  \omega\z(x_0\y) \defi \lim_{\delta\to 0^+} \omega\z[N_\delta\z(x_0\y)\y] \equiv\lim_{\delta\to 0^+} \z[  \sup f\z(N_\delta\z(x_0\y)\y) - \inf\z(N_\delta\z(x_0\y)\y)  \y]   \] 称为 $f$在$x_0$处的振幅.
+\end{definition}
+
+
+
+
+
+\section{Riemann积分学}
+
+\subsection{Cauchy积分}
+
+\subsection{Riemann积分}
+
+\begin{definition}[Riemann和]
+    
+\end{definition}
+\begin{definition}[Riemann积分]\label{Riemann积分定义}
+    
+\end{definition}
+
+\begin{proposition}\label{Dirichlet函数不可积}
+    Dirichlet函数Riemann不可积.
+\end{proposition}
+
+\subsubsection{Riemann可积函数类}
+
+
+
+\begin{proposition}[Riemann可积的充要条件]\label{Riemann可积充要条件}
+    
+\end{proposition}
+
+\begin{definition}[零测集]
+    
+\end{definition}
+\begin{definition}[Cantor三分集]\label{Cantor三分集}
+    
+\end{definition}
+
+\begin{theorem}[Lebesgue-Vitali定理]
+    
+\end{theorem}
+
+
+
+
+\section{级数理论}
+
+\subsection{数项级数}
+
+\begin{definition}[(函数项级数)有界]
+    
+\end{definition}
+\begin{definition}[(函数项级数)一致有界]
+    
+\end{definition}
+\begin{definition}[(函数项级数)收敛]
+    
+\end{definition}
+\begin{definition}[(函数项级数)一致收敛]
+    
+\end{definition}
+\begin{example}
+    我们来看一个一致收敛的例子.
+\end{example}
+\begin{example}\label{不一致收敛例子}
+    我们来看一个不一致收敛的例子. 对于 $x\in\z[0,1\y]$，取函数列
+    \[   f_n\z(x\y)=x^n \ra f\z(x\y)= \begin{cases}
+        0 \quad x\in\z[0,1\y), \\
+        1 \quad x=1
+    \end{cases};   \]
+    则 $\z\{f_n\y\}_{n\in\N}$不一致收敛. 假设其一致收敛，即：$\forall\,\eps >0$，存在一个\textbf{一致的(不依赖于$x$的)} $N_\eps\in\N$，使得对于一切 $x\in\z[0,1\y]$都有
+    \[ \z|f_n\z(x\y)-f\z(x\y)\y|=x^n <\eps,\;\forall\,n\ge N_\eps \]
+    成立，那么就可以同时在不等式两边令其中的 $x\ra 1^-$，得到
+    \[   \lim_{x\to 1^-} x^n<\eps \iff \eps\ge 1.    \]
+    而这说明当 $\eps \ge 1$时才存在这样的 $N_\eps$，可这与“$\forall\,\eps>0,\,\exists\,N_\eps\in\N$，使得……”矛盾.
+\end{example}
+
+\subsection{函数项级数}
+
+
+
+\subsubsection{换序理论}\label{换序理论}
+
+为什么要探讨换序问题呢？因为换序操作并非天然地就是合法的. 请看几个反例.
+\begin{example}\label{换序不合法例子}
+    由于 $\Q$是可列集，因此可设 $\z\{ q_n \y\}_{n\in\N}$是 $\z[0,1\y]$上的全体有理数，\\
+设函数列 $\z\{ \varphi_n \y\}_{n\in\N}$：
+\begin{align*}
+    \varphi_n \;:\;\; \z[0,1\y] &\ra \z\{ 0,1 \y\} \\
+    x &\mapsto \varphi_n\z( x \y) = \begin{cases}
+        1 \;\; x=r_n ; \\
+        0 \;\; x\ne r_n
+    \end{cases}.
+\end{align*}
+显然数项级数 \[   \sum_{n\in\N} \varphi_n\z(x\y)  \] 在 $\z[0,1\y]$ 上处处收敛. 因此函数项级数 \[   \sum_{n\in\N} \varphi_n   \] 收敛. 且极限函数 \[   \sum_{n\in\N} \varphi_n=D \equiv \z. \chi_\Q \y|_{\z[0,1\y]}  \] 就是大名鼎鼎的Dirichlet函数. 每一个 $\varphi_n$ 都是 $\z[0,1\y]$ 上性质极好的“简单函数”，都是Riemann可积的. 而由命题\ref{Dirichlet函数不可积}可知，它们求和的极限函数Dirichlet函数却是Riemann不可积的. 也即
+\[   \int_0^1 \z( \sum_{n\in\N} \varphi_n\z(x\y) \y) \d x  \ne \sum_{n\in\N} \int_0^1 \varphi_n\z(x\y) \d x .    \]
+因为等号左边的积分根本就不存在，而等号右边的积分级数却是良定的.
+\end{example}
+
+\begin{definition}[算子(或泛函)的换序]\label{换序定义}
+    
+\end{definition}
+
+
+
+
+
+\begin{theorem}[逐项积分定理]\label{逐项积分定理}
+    在积分域 $D$上，一个Riemann可积函数列 $\z\{ f_n \y\}_{n\in\N}$，且有$f_n \xrightarrow{\tx{unif.}} f$，则 $f$也Riemann可积且极限(级数)和Riemann积分可以交换次序. 即：
+    \[   \begin{cases}
+        f_n \xrightarrow{\tx{unif.}} f\,; \\
+        \forall\,n\in\N,\,f_n\,\tx{Riemann可积}
+    \end{cases} \implies \begin{cases}
+        f \,\tx{Riemann可积；} \\
+        \displaystyle \int_D f = \int_D \lim_{n\to+\wq} f_n = \lim_{n\to+\wq} \int_D f_n
+    \end{cases}.   \]
+\end{theorem}
+\begin{proof}
+    
+\end{proof}
+\begin{remark}
+    由此可见，一致连续性可以把Riemann可积性传递到极限函数上去，但是普通的收敛性可做不到这一点. 参见Arzelà控制收敛定理(定理\ref{A控制收敛定理}).
+\end{remark}
+\begin{example}\label{逐项积分定理过强}
+    取例\ref{不一致收敛例子}中的函数列，我们已经证明了它不一致收敛，于是便不满足逐项积分定理(定理\ref{逐项积分定理})的条件. 那么，它是否能换序呢？答案是可以的.
+    \[\begin{array}{c}
+       \displaystyle \int_0^1 \lim_{n\to+\wq} f_n = \int_0^1 0 \d x =0,  \\
+       \displaystyle \lim_{n\to+\wq} \int_0^1 f_n =\lim_{n\to+\wq} \int_0^1 x^n \d x = \lim_{n\to+\wq} \frac{1}{n+1} = 0.
+    \end{array}\]
+    即这个函数列不满足逐项积分定理的条件，但是逐项积分定理的结论却对它成立. 而这个函数列是一个多么简单而基本的函数列啊！这说明逐项积分定理的条件强得有点过分了. 因此我们考虑削弱逐项积分定理的条件.
+\end{example}
+
+\begin{theorem}[Arzelà控制收敛定理]\label{A控制收敛定理}
+    在积分域 $D$上，一个Riemann可积的函数列 $\z\{ f_n \y\}_{n\in\N}$收敛到一个Riemann可积的极限函数 $f$，且 $\z\{ f_n \y\}_{n\in\N}$一致有界，则极限(级数)和Riemann积分可以交换次序. 即：
+    \[   \begin{cases}
+        f_n \ra f \,; \\
+        \forall\,n\in\N,\,f_n\,\tx{Riemann可积} \\
+        f\,\tx{Riemann可积；} \\
+        \z\{ f_n \y\}_{n\in\N}\,\tx{一致有界}
+    \end{cases} \implies \int_D f = \int_D \lim_{n\to+\wq} f_n = \lim_{n\to+\wq} \int_D f_n \,.   \]
+\end{theorem}
+\begin{proof}
+    
+\end{proof}
+\begin{example}\label{Darboux积分反例}
+    (本例由Darboux给出.)我们来看一个满足Arzelà控制收敛定理的前三个条件，唯独不满足最后一个条件的函数列 $\z\{f_n\y\}_{n\in\N}$：
+    \[   f_n\z(x\y) = 2n^2 x \,\ee^{-n^2 x^2}.   \]
+    $\z\{f_n\y\}_{n\in\N}$不一致有界，且
+    \[   \int_0^1 \lim_{n\to+\wq} f_n \,\tx{、} \lim_{n\to+\wq} \int_0^1 f_n   \]
+    都存在，但不相等. 
+
+    因为显然 $\displaystyle \lim_{n\to+\wq} f_n \equiv 0 $，所以
+    \[  \int_0^1 \lim_{n\to+\wq} f_n = \int_0^1 0 \d x= 0. \]
+    又因为 $\displaystyle \int_0^1 f_n = \int_0^1 2n^2 x \,\ee^{-n^2 x^2}\d x = 1 - \ee^{-n^2} \ra 1$，即
+    \[  \lim_{n\to+\wq} \int_0^1 f_n = 1 \ne 0= \int_0^1 \lim_{n\to+\wq} f_n. \]
+
+    $\z\{ f_n \y\}_{n\in\N}$不一致有界是因为数列
+    \[   f_n\z( \frac{1}{n} \y) = \frac{2n}{\ee}   \]
+    显然是一个无界数列.
+\end{example}
+\vspace{0.5cm}
+
+Arzelà控制收敛定理仍为充分条件而非充要条件. 我们来看一个例子.
+\begin{example}
+    取积分域 $D=\z[0,1\y]$. 取函数列 $\z\{f_n\y\}_{n\in\N}$为
+    \[    \forall\,x\in\z[0,1\y],\;f_n\z(x\y)=\begin{cases}
+        \displaystyle n,\quad &x\in\z( \frac{1}{n+1},\frac{1}{n} \y]; \\
+        \displaystyle 0,\quad &x\in \z[ 0,\frac{1}{n+1} \y]\cup\z( \frac{1}{n},1 \y]
+    \end{cases}.  \]
+    则显然 $\displaystyle \lim_{n\to+\wq} f_n \equiv 0$，所以
+    \[ \int_0^1 \lim_{n\to+\wq} f_n = \int_0^1 0 \d x= 0. \]
+    又因为 $\displaystyle \int_0^1 f_n = \frac{1}{n+1}\ra 0$，即
+    \[ \int_0^1 \lim_{n\to+\wq} f_n = \lim_{n\to+\wq} \int_0^1 f_n = 0,\]
+    即$\z\{f_n\y\}_{n\in\N}$可逐项积分. 可是 $\z\{f_n\y\}_{n\in\N}$不一致有界，因为数列
+    \[ f_n\z( \frac{1}{n} \y)= n \]
+    显然是无界数列.
+\end{example}
+
+
+
+
+
+
+\section{Fourier分析初步}
+
+\begin{definition}[Fourier系数]
+    一个函数$f$的Fourier系数 $c_n,\,n\in\Z$为
+    \[   c_n= \frac{1}{2\pi} \int_{-\pi}^\pi f\z(x\y)\,\ee^{-\ii nx} \d x.  \]
+    其中 $\ii$为虚数单位.
+\end{definition}
+\begin{example}\label{不是Fourier系数的例子}
+    数列$\displaystyle \z\{ \frac{1}{n} \y\}_{n\in\N^*}$不是任何Riemann可积函数的Fourier系数.
+\end{example}
+
+\begin{theorem}[Parseval恒等式]\label{Parseval恒等式}
+    一个函数 $f$的全体Fourier系数 $c_n$满足
+    \[     \sum_{n\in\Z} \z|c_n\y|^2 =  \frac{1}{2\pi} \int_{-\pi}^\pi \z|f\z(x\y)\y|^2 \d x.    \]
+\end{theorem}
+
+
+
+\section{点集拓扑学基础}
+
+\subsection{集合上的拓扑结构}
+
+
+\subsubsection{内积空间}
+
+\subsubsection{赋范空间}
+
+\subsubsection{度量空间}
+
+\subsubsection{拓扑空间}
+
+
+\subsection{收敛与连续的一般化}
+\begin{definition}[内点]\label{内点定义}
+    
+\end{definition}
+
+
+\subsection{紧致性}
+
+
+\subsubsection{Heine-Borel定理}
+
+
+\subsection{列紧性}
+
+
+\subsubsection{Bolzano-Weierstra\ss 定理}
+
+
+
+
+
+
+
